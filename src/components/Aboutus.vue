@@ -4,7 +4,7 @@
       <img src="../assets/git.svg" width="32" height="32" alt>
     </a>
     &nbsp;
-    <abbr title="Email">tzcrow@gmail.com</abbr>
+    <abbr title="Email">tez.escrow@gmail.com</abbr>
   </footer>
 </template>
 

@@ -4,7 +4,7 @@
     <p class="text-center">Transact Safely with Escrow Protection.</p>
     <p
       class="text-center"
-    >Open source Tezos Dapp that allows two transacting parties, Buyer and Seller, to transact with the added security of an escrow of their choice.</p>
+    >Open source Tezos DApp that allows two transacting parties, Buyer and Seller, to transact with the added security of an escrow of their choice.</p>
   </div>
 </template>
 
