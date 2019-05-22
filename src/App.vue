@@ -3,16 +3,19 @@
   <div id="app">
     <Nav></Nav>
     <router-view></router-view>
+    <Aboutus></Aboutus>
   </div>
 </template>
 
 <script>
 import Nav from "./components/Nav.vue";
+import Aboutus from "./components/Aboutus.vue";
 
 export default {
   name: "app",
   components: {
-    Nav: Nav
+    Nav: Nav,
+    Aboutus: Aboutus
   }
 };
 </script>

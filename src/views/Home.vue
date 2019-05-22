@@ -1,15 +1,20 @@
 <template>
-  <Index></Index>
+  <div>
+    <Index></Index>
+    <About></About>
+  </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import Index from "@/components/Index.vue";
+import About from "@/components/Aboutus.vue";
 
 export default {
-  name: "home",
+  name: "Home",
   components: {
-    Index
+    Index,
+    About
   }
 };
 </script>

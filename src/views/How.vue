@@ -1,0 +1,17 @@
+<template>
+  <div>
+    <HowItWorks></HowItWorks>
+  </div>
+</template>
+
+<script>
+// @ is an alias to /src
+import HowItWorks from "@/components/HowItWorks.vue";
+
+export default {
+  name: "How",
+  components: {
+    HowItWorks
+  }
+};
+</script>

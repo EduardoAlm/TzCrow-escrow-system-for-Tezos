@@ -39,24 +39,20 @@ export default {
         {
           id: 3,
           text: "Fees",
-          page: "/fees"
+          page: "/fee"
         },
         {
           id: 4,
           text: "Benefits",
-          page: "/benefits"
+          page: "/benefit"
         },
         {
           id: 5,
           text: "Withdraw",
-          page: "/withdraw"
+          page: "/with"
         }
       ]
     };
   }
 };
 </script>
-
-<style>
-</style>
-

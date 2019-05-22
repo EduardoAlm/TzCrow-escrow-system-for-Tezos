@@ -1,20 +1,45 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Home from "./views/Home.vue";
+import GetStarted from "./views/Introduction.vue";
+import How from "./views/How.vue";
+import Fee from "./views/Fee.vue";
+import Benefit from "./views/Benefit.vue";
+import With from "./views/With.vue";
 
 Vue.use(Router);
 
 export default new Router({
-  mode: "history",
-  base: process.env.BASE_URL,
   routes: [
     {
       path: "/",
-      name: "home",
+      name: "Home",
       component: Home
     },
     {
-      path: ""
+      path: "/introduction",
+      name: "introduction",
+      component: GetStarted
+    },
+    {
+      path: "/how",
+      name: "How",
+      component: How
+    },
+    {
+      path: "/fee",
+      name: "Fee",
+      component: Fee
+    },
+    {
+      path: "/benefit",
+      name: "Benefit",
+      component: Benefit
+    },
+    {
+      path: "/with",
+      name: "With",
+      component: With
     }
   ]
 });
