@@ -1,4 +1,4 @@
-# tzcrow
+# tzCrow
 
 ## Project setup
 ```
