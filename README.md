@@ -31,7 +31,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ### If $/.tezos-node/config.json file is missing
 Go to tezos folder and run, 
 ```
-
 ./tezos-node config init
 ```
 
