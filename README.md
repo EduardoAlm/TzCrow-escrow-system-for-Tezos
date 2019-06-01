@@ -46,6 +46,6 @@ In there change the rpc listenning port to your node port.
 
 Example:
 
-![rpcConnection](src/assets/rpcConn.png)
+`![rpcConnection](src/assets/rpcConn.png)`
 
 
