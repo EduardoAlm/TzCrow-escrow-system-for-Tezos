@@ -33,7 +33,15 @@ Go to tezos folder and run,
 ```
 ./tezos-node config init
 ```
-
 the file will be created in $/.tezos-node/config.json.
+
+### Localhost execution 
+Go to /tezos folder and to start a node on the alphanet run 
+```
+./src/bin_node/tezos-sandboxed-node.sh 9 --connections 1
+```
+
+Once your node is up and runnning go to $/.tezos-node/config.json and alter the config.json.
+In there alter the rpc listenning port to your node port.
 
 
