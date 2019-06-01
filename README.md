@@ -43,6 +43,7 @@ Go to /tezos folder, and to start a node on the alphanet run,
 
 Once your node is up and runnning go to $/.tezos-node/config.json and alter the config.json file.
 In there change the rpc listenning port to your node port.
+
 Example:
 ![rpcConnection](src/assets/rpcConn.png)
 
