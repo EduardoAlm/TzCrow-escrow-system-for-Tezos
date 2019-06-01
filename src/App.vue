@@ -8,9 +8,9 @@
 </template>
 
 <script>
-//eztz.node.setProvider("http://localhost:8080");
 import Nav from "./components/Nav.vue";
 import Aboutus from "./components/Aboutus.vue";
+import "./utils/eztzBalance";
 
 export default {
   name: "app",
