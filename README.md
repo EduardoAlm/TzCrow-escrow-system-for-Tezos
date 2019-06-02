@@ -49,6 +49,12 @@ For last open the last of the three terminals and run,
 ` tezos-activate-alpha `
 to be able to test transactions etc... using default commands.
 
+(ignorar o texto anterior)
+Executar o comando que se segue, na pasta da tezos,
+```
+./tezos-node run
+```
+
 Once your node is up and runnning go to $/.tezos-node/config.json and alter the config.json file.
 In there change the rpc listenning port to your node port.
 
