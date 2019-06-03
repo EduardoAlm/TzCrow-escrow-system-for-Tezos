@@ -8,7 +8,7 @@
 <script>
 // @ is an alias to /src
 import Index from "@/components/Index.vue";
-import About from "@/components/Aboutus.vue";
+import About from "@/components/mainPage/Aboutus.vue";
 
 export default {
   name: "Home",

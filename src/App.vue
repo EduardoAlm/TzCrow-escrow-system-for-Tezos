@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import Nav from "./components/Nav.vue";
-import Aboutus from "./components/Aboutus.vue";
+import Nav from "./components/mainPage/Nav.vue";
+import Aboutus from "./components/mainPage/Aboutus.vue";
 import "./utils/eztzBalance";
 
 export default {
