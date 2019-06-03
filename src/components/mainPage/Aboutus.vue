@@ -1,7 +1,8 @@
+/* eslint-disable */
 <template>
   <footer class="w3-bottom w3-margin">
     <a href="https://github.com/">
-      <img src="../assets/git.svg" width="32" height="32" alt>
+      <img src="../../assets/git.svg" width="32" height="32" alt />
     </a>
     &nbsp;
     <abbr title="Email">tez.escrow@gmail.com</abbr>

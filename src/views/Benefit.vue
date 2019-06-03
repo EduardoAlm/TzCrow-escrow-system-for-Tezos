@@ -6,7 +6,7 @@
 
 <script>
 // @ is an alias to /src
-import Benefits from "@/components/Benefits.vue";
+import Benefits from "@/components/mainPage/Benefits.vue";
 
 export default {
   name: "Benefit",

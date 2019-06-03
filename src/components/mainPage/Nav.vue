@@ -1,3 +1,4 @@
+/* eslint-disable */
 <template>
   <div class="w3-center w3-container">
     <nav class="w3-section w3-bar">
@@ -7,7 +8,11 @@
         v-bind:key="routes.id"
         :to="`${routes.page}`"
       >
-        <img v-if="routes.imageUrl" :src="routes.imageUrl" style="width: 50px; height: 50px;">
+        <img
+          v-if="routes.imageUrl"
+          :src="routes.imageUrl"
+          style="width: 50px; height: 50px;"
+        />
         {{ routes.text }}
       </router-link>
     </nav>
@@ -24,7 +29,7 @@ export default {
           id: 0,
           text: "tzCrow",
           page: "/",
-          imageUrl: require("../assets/TezCrowLogo.png")
+          imageUrl: require("../../assets/TezCrowLogo.png")
         },
         {
           id: 1,

@@ -4,18 +4,30 @@
 
 <script>
 const eztz = window.eztz;
-eztz.node.setProvider("http://localhost:18739");
+eztz.node.setProvider("http://localhost:18731");
+
 var mnemonic =
   "fried potatoes dog cat cup bottle word letter google youtube stack memory hand god trust father";
 var keys = eztz.crypto.generateKeys(mnemonic, "password");
-console.log(keys);
+var account = keys.pkh;
+console.log(account);
+
 eztz.rpc
-  .getBalance("tz1Km7LiSAjn9H8gCLx1XjeDSGWHKu6LPTe5")
-  .then(function(res) {
-    alert("Your balance is " + res);
+  .getHeadHash()
+  .then(res => {
+    console.log("head:" + res);
   })
   .catch(function(e) {
-    console.log(e);
+    console.log("catch:" + e);
+  });
+
+eztz.rpc
+  .getBalance(account)
+  .then(res => {
+    console.log("balance:" + res);
+  })
+  .catch(function(e) {
+    console.log("catch:" + e);
   });
 
 export default {
