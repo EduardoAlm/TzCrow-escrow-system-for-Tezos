@@ -1,16 +1,27 @@
+/* eslint-disable */
 <template>
   <div class="w3-content">
     <img src="../assets/TezCrowmain.png" style="width:750px; height:420px;">
+
+    <div class="w3-center w3-content">
+      <h2></h2>
+      <Auth></Auth>
+    </div>
     <p class="text-center">Transact Safely with Escrow Protection.</p>
-    <p
-      class="text-center"
-    >Open source Tezos DApp that allows two transacting parties, Buyer and Seller, to transact with the added security of an escrow of their choice.</p>
+    <p class="text-center">
+      Open source Tezos DApp that allows two transacting parties, Buyer and
+      Seller, to transact with the added security of an escrow of their choice.
+    </p>
   </div>
 </template>
 
 <script>
+import Auth from "../utils/auth.vue";
 export default {
   name: "Index",
+  components: {
+    Auth
+  },
   props: {
     msg: String
   }

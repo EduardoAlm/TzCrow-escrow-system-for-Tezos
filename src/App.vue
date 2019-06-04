@@ -8,9 +8,8 @@
 </template>
 
 <script>
-//eztz.node.setProvider("http://localhost:8080");
-import Nav from "./components/Nav.vue";
-import Aboutus from "./components/Aboutus.vue";
+import Nav from "./components/mainPage/Nav.vue";
+import Aboutus from "./components/mainPage/Aboutus.vue";
 
 export default {
   name: "app",
@@ -32,12 +31,10 @@ export default {
 #nav {
   padding: 30px;
 }
-
 #nav a {
   font-weight: bold;
   color: #2c3e50;
 }
-
 #nav a.router-link-exact-active {
   color: #42b983;
 }

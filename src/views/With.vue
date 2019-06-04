@@ -6,7 +6,7 @@
 
 <script>
 // @ is an alias to /src
-import Withdraw from "@/components/Withdraw.vue";
+import Withdraw from "@/components/mainPage/Withdraw.vue";
 
 export default {
   name: "With",

@@ -6,6 +6,7 @@ import How from "./views/How.vue";
 import Fee from "./views/Fee.vue";
 import Benefit from "./views/Benefit.vue";
 import With from "./views/With.vue";
+import Seller from "./views/Seller.vue";
 
 Vue.use(Router);
 
@@ -40,6 +41,11 @@ export default new Router({
       path: "/with",
       name: "With",
       component: With
+    },
+    {
+      path: "/seller",
+      name: "Seller",
+      component: Seller
     }
   ]
 });
