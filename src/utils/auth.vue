@@ -2,13 +2,7 @@
   <div id="VueInputUi" class="vue-input-ui">
     <div class="container">
       <div class="component-container">
-        <VueInputUi
-          v-model="value9"
-          label="Insert your address"
-          hint="is required"
-          required
-          loader
-        />
+        <VueInputUi label="Insert your address" hint="is required" required loader/>
       </div>
     </div>
   </div>

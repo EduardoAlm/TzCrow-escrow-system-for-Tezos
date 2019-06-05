@@ -29,7 +29,7 @@
       @focus="onFocus"
       @blur="onBlur"
       @click="$emit('click')"
-    />
+    >
     <textarea
       v-else
       :id="id"
@@ -51,21 +51,16 @@
       :style="[colorStyle]"
       class="field-label"
       @click="focusInput"
-      >{{ hintValue || labelValue }}</label
-    >
-    <div v-if="loader" class="loader" :class="{ textarea }" />
-    <button
-      v-bind="$attrs"
-      class="btn"
-      style="margin-top: 20px;"
-      @click="isConnected"
-    >
-      Connect
-    </button>
+    >{{ hintValue || labelValue }}</label>
+    <div v-if="loader" class="loader" :class="{ textarea }"/>
+    <button v-bind="$attrs" class="btn" style="margin-top: 20px;" @click="isConnected">Connect</button>
   </div>
 </template>
 
 <script>
+import { mapMutations } from "vuex";
+import { mapGetters } from "vuex";
+
 export default {
   name: "VueInputUi",
   props: {
@@ -123,9 +118,11 @@ export default {
         hint += ` *`;
       }
       return hint;
-    }
+    },
+    ...mapGetters(["getAddress", "getStatus"])
   },
   methods: {
+    ...mapMutations(["setAddress", "setStatus"]),
     focusInput() {
       this.$refs.VueInputUi.focus();
     },
@@ -139,25 +136,29 @@ export default {
     },
     isConnected: function() {
       let data = {
-        address: this.address,
-        status: this.status
+        addrss: this.address,
+        stats: this.status
       };
       const eztz = window.eztz;
       eztz.node.setProvider("http://localhost:18731");
-      console.log(data.address);
-      let check = eztz.crypto.checkAddress(data.address);
+      console.log(data.addrss);
+      let check = eztz.crypto.checkAddress(data.addrss);
 
       console.log(check);
       if (check == true) {
         eztz.rpc
-          .getBalance(data.address)
+          .getBalance(data.addrss)
           .then(function(res) {
             console.log(res);
           })
           .catch(function(e) {
             console.log(e);
           });
-        data.status = check;
+
+        this.$store.commit("setAddress", data.addrss);
+        this.$store.commit("setStatus", data.stats);
+        alert(this.$store.getters.getAddress);
+        alert(this.$store.getters.getStatus);
       }
     }
   }
