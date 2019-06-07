@@ -6,11 +6,11 @@ import How from "./views/How.vue";
 import Fee from "./views/Fee.vue";
 import Benefit from "./views/Benefit.vue";
 import With from "./views/With.vue";
-import Seller from "./views/Seller.vue";
+import Sell from "./views/Sell.vue";
 
 Vue.use(Router);
 
-export default new Router({
+export const router = new Router({
   routes: [
     {
       path: "/",
@@ -19,33 +19,35 @@ export default new Router({
     },
     {
       path: "/introduction",
-      name: "introduction",
+      name: "Introductions",
       component: GetStarted
     },
     {
       path: "/how",
-      name: "How",
+      name: "HowItWorks",
       component: How
     },
     {
       path: "/fee",
-      name: "Fee",
+      name: "Fees",
       component: Fee
     },
     {
       path: "/benefit",
-      name: "Benefit",
+      name: "Benefits",
       component: Benefit
     },
     {
       path: "/with",
-      name: "With",
+      name: "Withdraw",
       component: With
     },
     {
-      path: "/seller",
+      path: "/sell",
       name: "Seller",
-      component: Seller
+      component: Sell
     }
   ]
 });
+
+export default router;
