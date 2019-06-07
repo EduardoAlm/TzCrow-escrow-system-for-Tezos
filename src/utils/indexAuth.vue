@@ -29,7 +29,7 @@
       @focus="onFocus"
       @blur="onBlur"
       @click="$emit('click')"
-    >
+    />
     <textarea
       v-else
       :id="id"
@@ -51,20 +51,25 @@
       :style="[colorStyle]"
       class="field-label"
       @click="focusInput"
-    >{{ hintValue || labelValue }}</label>
-    <div v-if="loader" class="loader" :class="{ textarea }"/>
+      >{{ hintValue || labelValue }}</label
+    >
+    <div v-if="loader" class="loader" :class="{ textarea }" />
     <button
       v-bind="$attrs"
       class="btn"
       style="margin-top: 20px; margin-right: 5px"
       @click="isConnected"
-    >Connect</button>
+    >
+      Connect
+    </button>
     <button
       v-bind="$attrs"
       class="btn"
       style="margin-top: 20px; margin-left: 5px; background-color: #f44336"
       @click="disconnect"
-    >Disconnect</button>
+    >
+      Disconnect
+    </button>
   </div>
 </template>
 

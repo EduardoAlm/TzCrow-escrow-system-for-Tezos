@@ -9,7 +9,11 @@
           v-bind:key="routes.id"
           :to="`${routes.page}`"
         >
-          <img v-if="routes.imageUrl" :src="routes.imageUrl" style="width: 50px; height: 50px;">
+          <img
+            v-if="routes.imageUrl"
+            :src="routes.imageUrl"
+            style="width: 50px; height: 50px;"
+          />
           {{ routes.text }}
         </router-link>
       </div>
@@ -21,7 +25,11 @@
           v-bind:key="routes.id"
           :to="`${routes.page}`"
         >
-          <img v-if="routes.imageUrl" :src="routes.imageUrl" style="width: 50px; height: 50px;">
+          <img
+            v-if="routes.imageUrl"
+            :src="routes.imageUrl"
+            style="width: 50px; height: 50px;"
+          />
           {{ routes.text }}
         </router-link>
       </div>

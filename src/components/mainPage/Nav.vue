@@ -14,7 +14,7 @@
           style="width: 50px; height: 50px;"
         />
         {{ routes.text }}
-      </router-link> 
+      </router-link>
     </nav>
   </div>
 </template>
@@ -22,7 +22,7 @@
 <script>
 export default {
   name: "Nav",
-  data: function () {
+  data: function() {
     return {
       links: [
         {
@@ -58,6 +58,6 @@ export default {
         }
       ]
     };
-  } 
+  }
 };
 </script>
