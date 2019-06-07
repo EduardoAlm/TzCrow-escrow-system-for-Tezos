@@ -9,7 +9,7 @@
 import Seller from "@/components/Seller.vue";
 
 export default {
-  name: "Seller",
+  name: "Sell",
   components: {
     Seller
   }

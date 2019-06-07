@@ -22,7 +22,7 @@
 <script>
 export default {
   name: "Nav",
-  data() {
+  data: function() {
     return {
       links: [
         {

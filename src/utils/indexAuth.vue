@@ -29,7 +29,7 @@
       @focus="onFocus"
       @blur="onBlur"
       @click="$emit('click')"
-    >
+    />
     <textarea
       v-else
       :id="id"
@@ -51,15 +51,31 @@
       :style="[colorStyle]"
       class="field-label"
       @click="focusInput"
-    >{{ hintValue || labelValue }}</label>
-    <div v-if="loader" class="loader" :class="{ textarea }"/>
-    <button v-bind="$attrs" class="btn" style="margin-top: 20px;" @click="isConnected">Connect</button>
+      >{{ hintValue || labelValue }}</label
+    >
+    <div v-if="loader" class="loader" :class="{ textarea }" />
+    <button
+      v-bind="$attrs"
+      class="btn"
+      style="margin-top: 20px; margin-right: 5px"
+      @click="isConnected"
+    >
+      Connect
+    </button>
+    <button
+      v-bind="$attrs"
+      class="btn"
+      style="margin-top: 20px; margin-left: 5px; background-color: #f44336"
+      @click="disconnect"
+    >
+      Disconnect
+    </button>
   </div>
 </template>
 
 <script>
-import { mapMutations } from "vuex";
-import { mapGetters } from "vuex";
+import { store } from "../store.js";
+import * as Cookies from "js-cookie";
 
 export default {
   name: "VueInputUi",
@@ -119,10 +135,14 @@ export default {
       }
       return hint;
     },
-    ...mapGetters(["getAddress", "getStatus"])
+    st() {
+      return store.state.status;
+    },
+    ad() {
+      return store.state.address;
+    }
   },
   methods: {
-    ...mapMutations(["setAddress", "setStatus"]),
     focusInput() {
       this.$refs.VueInputUi.focus();
     },
@@ -154,12 +174,16 @@ export default {
           .catch(function(e) {
             console.log(e);
           });
-
-        this.$store.commit("setAddress", data.addrss);
-        this.$store.commit("setStatus", data.stats);
-        alert(this.$store.getters.getAddress);
-        alert(this.$store.getters.getStatus);
+        data.stats = check;
+        Cookies.set("status", data.stats, { expires: 1 });
+        Cookies.set("address", data.addrss, { expires: 1 });
+        window.location.reload(true);
       }
+    },
+    disconnect: function() {
+      Cookies.remove("address");
+      Cookies.remove("status");
+      window.location.reload(true);
     }
   }
 };
