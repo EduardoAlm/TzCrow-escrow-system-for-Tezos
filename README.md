@@ -38,11 +38,12 @@ the file will be created in $/.tezos-node/config.json.
 ### Localhost execution 
 Open three terminals and in each one navigate to /tezos folder, them chose one and run, 
 ```
-./src/bin_node/tezos-sandboxed-node.sh 9 --connections 1
+./src/bin_node/tezos-sandboxed-node.sh 1 --connections 1 --cors-header='content-type' --cors-origin='*'
 ```
 ,then on a diferent terminal run,
 ```
-eval `./src/bin_client/tezos-init-sandboxed-client.sh 1`
+eval `./src/bin_client/tezos-init-sandboxed-client.sh 1 --cors-header='content-type' --cors-origin='*'`
+
 ```
 to inicialize the client data.
 For last open the last of the three terminals and run,
