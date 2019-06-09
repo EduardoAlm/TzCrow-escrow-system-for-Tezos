@@ -28,6 +28,10 @@
         style="border:2px solid grey"
         type="text"
       />
+      <label class="w3-text-light-green" style
+        >Collateral is 50% of the transaction required amount:
+        {{ this.colateral }} tz</label
+      >
       <p>&nbsp;</p>
       <button
         class="w3-button w3-round w3-green w3-hover-opacity"
@@ -46,7 +50,8 @@ export default {
     return {
       bAdd: "",
       contractName: "",
-      tzAmount: ""
+      tzAmount: "",
+      colateral: "--"
     };
   },
   methods: {
@@ -54,11 +59,18 @@ export default {
       let data = {
         bAddress: this.bAdd,
         cName: this.contractName,
-        tz: this.tzAmount
+        tz: this.tzAmount,
+        col: this.tzAmount * 0.5
       };
+      if (this.tzAmount > 0) {
+        this.colateral = data.col;
+      } else {
+        this.colateral = "--";
+      }
       console.log(data.bAddress);
       console.log(data.cName);
       console.log(data.tz);
+      console.log(data.col);
     }
   }
 };
