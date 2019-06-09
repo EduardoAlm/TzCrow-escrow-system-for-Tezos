@@ -36,6 +36,7 @@ Go to tezos folder and run,
 the file will be created in $/.tezos-node/config.json.
 
 ### Localhost execution 
+#### (*sandboxed*)
 Open three terminals and in each one navigate to /tezos folder, them chose one and run, 
 ```
 ./src/bin_node/tezos-sandboxed-node.sh 1 --connections 1 --cors-header='content-type' --cors-origin='*'
@@ -50,7 +51,7 @@ For last open the last of the three terminals and run,
 ` tezos-activate-alpha `
 to be able to test transactions etc... using default commands.
 
-(ignorar o texto anterior)
+#### (*not sandboxed*)
 Executar o comando que se segue, na pasta da tezos,
 ```
 ./tezos-node run
