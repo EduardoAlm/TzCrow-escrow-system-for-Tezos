@@ -27,7 +27,7 @@ npm run lint
 
 ### Aditional Packages
 ```
-npm install js-cookie --save
+npm install js-cookie
 ```
 
 ### Customize configuration
