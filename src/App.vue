@@ -10,6 +10,9 @@
     </div>
     <router-view></router-view>
     <Aboutus></Aboutus>
+    <div v-if="!this.acc">
+      <CookiesAccept></CookiesAccept>
+    </div>
   </div>
 </template>
 
@@ -18,6 +21,7 @@ import Nav from "./components/mainPage/Nav.vue";
 import NavAuth from "./components/NavAuth.vue";
 import Aboutus from "./components/mainPage/Aboutus.vue";
 import HeaderAuth from "./utils/HeaderAuth.vue";
+import CookiesAccept from "./components/mainPage/CookiesAccept";
 import "./utils/eztzBalance";
 import * as Cookies from "js-cookie";
 
@@ -26,18 +30,21 @@ export default {
   data() {
     return {
       status: false,
-      address: ""
+      address: "",
+      acc: false
     };
   },
   mounted() {
-    alert((this.address = Cookies.get("address")));
-    alert((this.status = Cookies.get("status")));
+    this.address = Cookies.get("address");
+    this.status = Cookies.get("status");
+    this.acc = Cookies.get("cookAcc");
   },
   components: {
     Nav: Nav,
     Aboutus: Aboutus,
     NavAuth: NavAuth,
-    HeaderAuth: HeaderAuth
+    HeaderAuth: HeaderAuth,
+    CookiesAccept: CookiesAccept
   }
 };
 </script>

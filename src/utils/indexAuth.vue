@@ -56,7 +56,7 @@
     <div v-if="loader" class="loader" :class="{ textarea }" />
     <button
       v-bind="$attrs"
-      class="btn"
+      class="btn w3-hover-opacity"
       style="margin-top: 20px; margin-right: 5px"
       @click="isConnected"
     >
@@ -64,7 +64,7 @@
     </button>
     <button
       v-bind="$attrs"
-      class="btn"
+      class="btn w3-hover-opacity"
       style="margin-top: 20px; margin-left: 5px; background-color: #f44336"
       @click="disconnect"
     >
@@ -175,14 +175,15 @@ export default {
             console.log(e);
           });
         data.stats = check;
-        Cookies.set("status", data.stats, { expires: 1 });
-        Cookies.set("address", data.addrss, { expires: 1 });
+        Cookies.set("status", data.stats);
+        Cookies.set("address", data.addrss);
         window.location.reload(true);
       }
     },
     disconnect: function() {
       Cookies.remove("address");
       Cookies.remove("status");
+      Cookies.remove("cookAcc");
       window.location.reload(true);
     }
   }
