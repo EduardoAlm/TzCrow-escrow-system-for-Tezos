@@ -7,7 +7,10 @@ import Fee from "./views/Fee.vue";
 import Benefit from "./views/Benefit.vue";
 import With from "./views/With.vue";
 import Buy from "./views/Buy.vue";
+import Sell from "./views/Sell.vue";
 import Trans from "./views/Trans.vue";
+import TransSC from "./views/TransSC.vue";
+import Crow from "./views/Escrow.vue";
 
 Vue.use(Router);
 
@@ -49,9 +52,24 @@ export const router = new Router({
       component: Buy
     },
     {
+      path: "/sell",
+      name: "Seller",
+      component: Sell
+    },
+    {
       path: "/transaction",
       name: "Transactions",
       component: Trans
+    },
+    {
+      path: "/transactionSC",
+      name: "TransactionsSC",
+      component: TransSC
+    },
+    {
+      path: "/crow",
+      name: "Escrow",
+      component: Crow
     }
   ]
 });

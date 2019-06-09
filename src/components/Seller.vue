@@ -1,0 +1,41 @@
+/* eslint-disable */
+<template>
+  <div>
+    <div class="w3-container w3-center">
+      <h2>Seller</h2>
+    </div>
+    <p>&nbsp;</p>
+    <div class="w3-cell-row">
+      <div class="w3-container w3-cell" style="margin-left:100px; width:25%">
+        <SellerAddress></SellerAddress>
+        <div style="margin-top:30px"></div>
+        <SellerBalance></SellerBalance>
+        <div style="margin-top:30px"></div>
+        <TransactionCreate></TransactionCreate>
+      </div>
+      <div class="w3-container w3-cell">
+        <TransactionListSeller></TransactionListSeller>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import SellerAddress from "./sellerPage/sellerAddress.vue";
+import SellerBalance from "./sellerPage/sellerBalance.vue";
+import TransactionCreate from "./sellerPage/transactionCreate.vue";
+import TransactionListSeller from "./sellerPage/transactionListSeller.vue";
+
+export default {
+  name: "Seller",
+  props: {
+    msg: String
+  },
+  components: {
+    SellerBalance: SellerBalance,
+    TransactionCreate: TransactionCreate,
+    SellerAddress: SellerAddress,
+    TransactionListSeller: TransactionListSeller
+  }
+};
+</script>

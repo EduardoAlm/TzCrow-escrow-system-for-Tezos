@@ -82,7 +82,8 @@ export default {
         },
         {
           id: 7,
-          text: "Seller"
+          text: "Seller",
+          page: "/sell"
         },
         {
           id: 8,
@@ -91,7 +92,8 @@ export default {
         },
         {
           id: 9,
-          text: "Escrow"
+          text: "Escrow",
+          page: "/crow"
         }
       ]
     };
