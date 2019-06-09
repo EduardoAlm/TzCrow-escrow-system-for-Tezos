@@ -1,17 +1,17 @@
 <template>
   <div>
-    <Seller></Seller>
+    <Buyer></Buyer>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Seller from "@/components/Seller.vue";
+import Buyer from "@/components/Buyer.vue";
 
 export default {
-  name: "Sell",
+  name: "Buy",
   components: {
-    Seller
+    Buyer
   }
 };
 </script>

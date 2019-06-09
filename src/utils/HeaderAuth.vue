@@ -1,12 +1,11 @@
 <template>
-  <div class="w3-bar w3-green">
-    <div class="w3-bar-item w3-center">Address Verification Sucessful</div>
+  <div class="w3-bar w3-green w3-center">
+    <div class="w3-bar-item">Address Verification/Connection Sucessful!</div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "HeaderAuth",
-  data() {}
+  name: "HeaderAuth"
 };
 </script>

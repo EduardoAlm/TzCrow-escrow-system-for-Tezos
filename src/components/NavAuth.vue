@@ -1,6 +1,6 @@
 /* eslint-disable */
 <template>
-  <div class="w3-container">
+  <div class="w3-container w3-border">
     <nav class="w3-section w3-bar">
       <div class="w3-left">
         <router-link
@@ -82,12 +82,12 @@ export default {
         },
         {
           id: 7,
-          text: "Seller",
-          page: "/sell"
+          text: "Seller"
         },
         {
           id: 8,
-          text: "Buyer"
+          text: "Buyer",
+          page: "/buy"
         },
         {
           id: 9,
