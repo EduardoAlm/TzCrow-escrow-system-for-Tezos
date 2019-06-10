@@ -5,14 +5,17 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
+    "lint": "vue-cli-service lint --no-verify --ignore-pattern '!bower_components/*'",
     "test:e2e": "vue-cli-service test:e2e",
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
     "core-js": "^2.6.5",
+    "couchdb": "^0.3.8",
     "ipfs": "^0.36.3",
     "js-cookie": "^2.2.0",
+    "pouchdb": "^7.0.0",
+    "pouchdb-browser": "^7.0.0",
     "register-service-worker": "^1.6.2",
     "vue": "^2.6.10",
     "vue-input-ui": "^0.2.5",

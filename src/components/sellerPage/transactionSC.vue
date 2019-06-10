@@ -45,7 +45,7 @@
       <p>&nbsp;</p>
       <button
         class="w3-button w3-round w3-green w3-hover-opacity"
-        @click="getInfo, ipfs"
+        @click="getInfo"
       >
         Create Transaction
       </button>
@@ -54,6 +54,13 @@
 </template>
 
 <script>
+import PouchDB from "pouchdb";
+import * as Cookies from "js-cookie";
+
+function ipfs() {
+  alert("ipfs");
+}
+
 export default {
   name: "transactionSC",
   data: function() {
@@ -66,10 +73,9 @@ export default {
     };
   },
   methods: {
-    ipfs() {
-      alert("ipfs");
-    },
-    getInfo() {
+    pouch: function() {},
+    ipfs: function() {},
+    getInfo: function() {
       let data = {
         productDesc: this.productDescription,
         cName: this.contractName,
@@ -86,7 +92,23 @@ export default {
       console.log(data.tz);
       console.log(data.col);
       console.log(this.fee);
+      ipfs();
+
+      var dt = new Date();
+      var db = new PouchDB("http://localhost:5984/sc_cid");
+      var doc = {
+        _id: dt.toUTCString(),
+        seller_address: Cookies.get("address"),
+        product_price: this.tzAmount,
+        colateral: this.colateral,
+        fee: this.fee,
+        product_description: this.productDescription,
+        contract_name: this.contractName,
+        cid: ""
+      };
+      db.put(doc);
     }
-  }
+  },
+  mounted() {}
 };
 </script>

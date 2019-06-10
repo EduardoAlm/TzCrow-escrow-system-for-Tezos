@@ -1,6 +1,6 @@
 <template>
   <div class="w3-container">
-    <div class="component-container" style="width: 90%">
+    <div class="component-container" style="width: 100%">
       <h4>Transaction</h4>
       <p>&nbsp;</p>
       <router-link

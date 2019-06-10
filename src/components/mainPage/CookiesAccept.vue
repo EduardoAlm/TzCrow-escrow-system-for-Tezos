@@ -23,7 +23,7 @@ export default {
   name: "CookiesAccept",
   methods: {
     cookiesAcc() {
-      Cookies.set("cookAcc", true, { expires: 1 });
+      Cookies.set("cookAcc", true);
       window.location.reload(true);
     }
   }
