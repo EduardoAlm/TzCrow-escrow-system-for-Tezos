@@ -22,7 +22,6 @@ import NavAuth from "./components/NavAuth.vue";
 import Aboutus from "./components/mainPage/Aboutus.vue";
 import HeaderAuth from "./utils/HeaderAuth.vue";
 import CookiesAccept from "./components/mainPage/CookiesAccept";
-import "./utils/eztzBalance";
 import * as Cookies from "js-cookie";
 
 export default {
