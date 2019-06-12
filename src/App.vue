@@ -23,12 +23,6 @@ import Aboutus from "./components/mainPage/Aboutus.vue";
 import HeaderAuth from "./utils/HeaderAuth.vue";
 import CookiesAccept from "./components/mainPage/CookiesAccept";
 import * as Cookies from "js-cookie";
-import PouchDB from "pouchdb";
-var db = new PouchDB("http://localhost:5984/sc_cid");
-
-db.info().then(function(info) {
-  console.log(info);
-});
 
 export default {
   name: "app",

@@ -9,10 +9,11 @@
         class="w3-input w3-border-5 w3-hover-border-green w3-round-large w3-light-grey"
         style="border:2px solid grey"
         type="text"
+        @keypress="checkNull"
       />
       <label class="w3-text-light-green" style>
         Collateral is 50% of the transaction required amount:
-        {{ this.colateral }} tz
+        {{ this.tzAmount * 0.5 }} tz
       </label>
       <div style="margin-top:30px"></div>
       <h4>Transaction Title</h4>
@@ -22,8 +23,15 @@
         class="w3-input w3-border-5 w3-hover-border-green w3-round-large w3-light-grey"
         style="border:2px solid grey"
         type="text"
+        @keyup="checkName"
+        @keypress="checkNull"
       />
-      <div style="margin-top:30px"></div>
+      <div style="margin-top:30px">
+        <div class="alert alert-warning" v-if="cnFlag">
+          <strong>Warning!</strong> There is already a contract with that name.
+          Please change it.
+        </div>
+      </div>
       <h4>Product Description</h4>
       <input
         :id="productDescription"
@@ -31,6 +39,7 @@
         class="w3-input w3-border-5 w3-hover-border-green w3-round-large w3-light-grey"
         style="border:2px solid grey"
         type="text"
+        @keypress="checkNull"
       />
       <div style="margin-top:30px"></div>
       <h4>Fee</h4>
@@ -43,12 +52,34 @@
       >
 
       <p>&nbsp;</p>
-      <button
-        class="w3-button w3-round w3-green w3-hover-opacity"
-        @click="getInfo"
+      <div v-if="cnFlag == true || nullFlag == true">
+        <button
+          class="w3-button w3-round w3-green w3-hover-opacity"
+          @click="getInfo"
+          disabled
+        >
+          Create Transaction
+        </button>
+      </div>
+      <div v-else>
+        <button
+          class="w3-button w3-round w3-green w3-hover-opacity"
+          @click="getInfo"
+        >
+          Create Transaction
+        </button>
+      </div>
+      <div
+        class="alert alert-success"
+        style="margin-top:20px"
+        v-if="createFlag == true"
       >
-        Create Transaction
-      </button>
+        <strong>Success!</strong>
+        You have successfully submitted the transaction data.
+        <strong>
+          To create a new one you have to go to the seller home page first.
+        </strong>
+      </div>
     </div>
   </div>
 </template>
@@ -56,10 +87,6 @@
 <script>
 import PouchDB from "pouchdb";
 import * as Cookies from "js-cookie";
-
-function ipfs() {
-  alert("ipfs");
-}
 
 export default {
   name: "transactionSC",
@@ -69,12 +96,14 @@ export default {
       contractName: "",
       tzAmount: "",
       colateral: "--",
-      fee: 1.5
+      fee: 1.5,
+      cnFlag: false,
+      nullFlag: true,
+      createFlag: false
     };
   },
   methods: {
     pouch: function() {},
-    ipfs: function() {},
     getInfo: function() {
       let data = {
         productDesc: this.productDescription,
@@ -92,23 +121,62 @@ export default {
       console.log(data.tz);
       console.log(data.col);
       console.log(this.fee);
-      ipfs();
 
       var dt = new Date();
       var db = new PouchDB("http://localhost:5984/sc_cid");
       var doc = {
-        _id: dt.toUTCString(),
-        seller_address: Cookies.get("address"),
-        product_price: this.tzAmount,
+        _id: (dt.getTime() / 1000).toString(),
+        selleraddress: Cookies.get("address"),
+        createdon: dt.toUTCString(),
+        productprice: this.tzAmount,
         colateral: this.colateral,
         fee: this.fee,
-        product_description: this.productDescription,
-        contract_name: this.contractName,
-        cid: ""
+        productdesc: this.productDescription,
+        contractname: this.contractName,
+        buyeraddress: "",
+        updatedate: "",
+        hxsc: "",
+        contractstatus: "Created..."
       };
       db.put(doc);
+      this.productDescription = "";
+      this.contractName = "";
+      this.tzAmount = "";
+      this.nullFlag = true;
+      this.createFlag = true;
+      Cookies.remove("arrayCN");
+    },
+    checkNull() {
+      this.createFlag = false;
+      if (
+        this.productDescription === "" ||
+        this.contractName === "" ||
+        this.productPrice === ""
+      ) {
+        this.nullFlag = true;
+      } else {
+        this.nullFlag = false;
+      }
+    },
+    checkName() {
+      this.cnFlag = false;
+
+      var arrayCN = JSON.parse(Cookies.get("arrayCN"));
+      console.log(arrayCN);
+      for (var obj in arrayCN) {
+        if (arrayCN[obj] === this.contractName) {
+          this.cnFlag = true;
+        }
+        console.log(this.contractName);
+        console.log(arrayCN[obj]);
+      }
+      if (this.cnFlag) {
+        console.log("true");
+        this.contractName = "";
+      } else {
+        console.log("false");
+      }
     }
-  },
-  mounted() {}
+  }
 };
 </script>
