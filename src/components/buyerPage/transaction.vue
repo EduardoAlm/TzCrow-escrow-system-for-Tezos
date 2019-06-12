@@ -98,9 +98,10 @@
       >
         <strong>Success!</strong>
         You have successfully submitted the transaction data.
-        <strong>
-          To create a new one you have to go to the buyer home page first.
-        </strong>
+        <strong
+          >To create a new one you have to go to the buyer home page
+          first.</strong
+        >
       </div>
     </div>
   </div>
@@ -150,7 +151,7 @@ export default {
       for (var obj in bArray) {
         if (
           this.contractName === bArray[obj].contractname &&
-          this.sAdd === bArray[obj].selleraddress &&
+          data.sAddress === bArray[obj].selleraddress &&
           this.tzAmount === bArray[obj].productprice
         ) {
           PouchDB.plugin(findPlugin);
@@ -208,33 +209,45 @@ export default {
     checkAddress() {
       var bArray = JSON.parse(Cookies.get("bArray"));
       console.log(bArray);
+      var verif = 0;
       for (var obj in bArray) {
         if (this.sAdd === bArray[obj].selleraddress) {
-          this.checkFlagAdd = true;
-          console.log("true");
+          verif = verif + 1;
         }
         console.log(this.sAdd);
         console.log(bArray[obj].selleraddress);
+      }
+      if (verif <= 0) {
+        this.checkFlagAdd = false;
+      } else {
+        this.checkFlagAdd = true;
       }
     },
     checkCName() {
       var bArray = JSON.parse(Cookies.get("bArray"));
       console.log(bArray);
+      var verif = 0;
       for (var obj in bArray) {
         if (
           this.contractName === bArray[obj].contractname &&
           this.sAdd === bArray[obj].selleraddress
         ) {
-          this.checkFlagCN = true;
+          verif = verif + 1;
           console.log("true");
         }
         console.log(this.contractName);
         console.log(bArray[obj].contractname);
       }
+      if (verif <= 0) {
+        this.checkFlagCN = false;
+      } else {
+        this.checkFlagCN = true;
+      }
     },
     checkAmount() {
       var bArray = JSON.parse(Cookies.get("bArray"));
       console.log(bArray);
+
       var balance = this.getBal();
       for (var obj in bArray) {
         if (
@@ -251,7 +264,6 @@ export default {
           } else {
             this.checkFlagA = true;
             this.checkFlagBal = true;
-            console.log("true");
           }
         }
         console.log(this.tzAmount);

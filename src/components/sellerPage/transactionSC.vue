@@ -76,9 +76,10 @@
       >
         <strong>Success!</strong>
         You have successfully submitted the transaction data.
-        <strong>
-          To create a new one you have to go to the seller home page first.
-        </strong>
+        <strong
+          >To create a new one you have to go to the seller home page
+          first.</strong
+        >
       </div>
     </div>
   </div>
@@ -160,20 +161,21 @@ export default {
     },
     checkName() {
       this.cnFlag = false;
-
+      var verif = 0;
       var arrayCN = JSON.parse(Cookies.get("arrayCN"));
       console.log(arrayCN);
       for (var obj in arrayCN) {
         if (arrayCN[obj] === this.contractName) {
-          this.cnFlag = true;
+          verif = verif + 1;
         }
         console.log(this.contractName);
         console.log(arrayCN[obj]);
       }
-      if (this.cnFlag) {
-        console.log("true");
+      if (verif > 0) {
+        this.cnFlag = true;
         this.contractName = "";
       } else {
+        this.cnFlag = false;
         console.log("false");
       }
     }

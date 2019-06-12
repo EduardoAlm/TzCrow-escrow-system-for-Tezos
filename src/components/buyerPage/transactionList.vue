@@ -100,7 +100,7 @@
 <script>
 import PouchDB from "pouchdb";
 import findPlugin from "pouchdb-find";
-import * as Cookies from "js-cookies";
+import * as Cookies from "js-cookie";
 export default {
   name: "TransactionList",
   data: function() {
