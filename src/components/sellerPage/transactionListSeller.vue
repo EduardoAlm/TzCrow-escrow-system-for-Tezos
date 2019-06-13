@@ -3,10 +3,9 @@
     <div class="component-container" style="width: 100%">
       <table class="w3-table w3-bordered w3-centered w3-striped">
         <tr>
-          <th>Address</th>
+          <th>Your Address</th>
           <th>Contract Name</th>
           <th>Date of Creation</th>
-          <th>Buyer Address</th>
           <th>Contract Status</th>
           <th>Details</th>
         </tr>
@@ -18,7 +17,6 @@
           <td>{{ trans.selleraddress }}</td>
           <td>{{ trans.contractname }}</td>
           <td>{{ trans.createdon }}</td>
-          <td>{{ trans.buyeraddress }}</td>
           <td>{{ trans.contractstatus }}</td>
           <td>
             <button
@@ -65,7 +63,7 @@
                 class="component-container"
                 style="border: 0.7px solid gray;"
               >
-                <h5>Seller Address:</h5>
+                <h5>Your Address:</h5>
                 <p>{{ trans.selleraddress }}</p>
                 <hr style="border: 0.7px solid gray;" />
                 <h5 class>Contract Name:</h5>
@@ -82,6 +80,12 @@
                 <hr style="border: 0.7px solid gray;" />
                 <h5>Transaction Fee:</h5>
                 <p>{{ trans.fee }}</p>
+                <hr style="border: 0.7px solid gray;" />
+                <h5>Buyer Pay Time:</h5>
+                <p>{{ trans.buyerPayTime }}</p>
+                <hr style="border: 0.7px solid gray;" />
+                <h5>Seller Pay Time:</h5>
+                <p>{{ trans.sellerPayTime }}</p>
                 <hr style="border: 0.7px solid gray;" />
                 <h5>Product Description:</h5>
                 <p>{{ trans.productdesc }}</p>

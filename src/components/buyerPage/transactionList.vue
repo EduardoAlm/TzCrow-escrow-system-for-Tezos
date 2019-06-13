@@ -3,11 +3,11 @@
     <div class="component-container" style="width: 100%">
       <table class="w3-table w3-bordered w3-centered w3-striped">
         <tr>
-          <th>Address</th>
+          <th>Seller Address</th>
           <th>Contract Name</th>
-          <th>Date of Creation</th>
           <th>Buyer Address</th>
           <th>Contract Status</th>
+          <th>Buyer Pay Time</th>
           <th>Details</th>
         </tr>
         <tr
@@ -17,8 +17,8 @@
         >
           <td>{{ trans.selleraddress }}</td>
           <td>{{ trans.contractname }}</td>
-          <td>{{ trans.createdon }}</td>
           <td>{{ trans.buyeraddress }}</td>
+          <td>{{ trans.buyerPayTime }}</td>
           <td>{{ trans.contractstatus }}</td>
           <td>
             <button
@@ -65,9 +65,6 @@
                 class="component-container"
                 style="border: 0.7px solid gray;"
               >
-                <h5>Seller Address:</h5>
-                <p>{{ trans.selleraddress }}</p>
-                <hr style="border: 0.7px solid gray;" />
                 <h5 class>Contract Name:</h5>
                 <p>{{ trans.contractname }}</p>
                 <hr style="border: 0.7px solid gray;" />
@@ -142,6 +139,7 @@ export default {
               fee: 1.5,
               productdesc: result.docs[i].productdesc,
               contractname: result.docs[i].contractname,
+              buyerPayTime: result.docs[i].buyerPayTime,
               updatedate: result.docs[i].updatedate,
               buyeraddress: result.docs[i].buyeraddress,
               hxsc: result.docs[i].hxsc,

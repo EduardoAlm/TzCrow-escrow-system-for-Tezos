@@ -2,6 +2,7 @@
 <template>
   <div>
     <div class="w3-container w3-center">
+      <p></p>
       <h2>Seller</h2>
     </div>
     <p>&nbsp;</p>
