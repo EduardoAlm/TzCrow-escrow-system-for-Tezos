@@ -71,7 +71,7 @@
         class="w3-input w3-border-5 w3-hover-border-green w3-round-large w3-light-grey"
         style="border:2px solid grey"
         type="text"
-        >1.5%</label
+        >0.05%</label
       >
 
       <p>&nbsp;</p>
@@ -99,9 +99,10 @@
       >
         <strong>Success!</strong>
         You have successfully submitted the transaction data.
-        <strong>
-          To create a new one you have to go to the seller home page first.
-        </strong>
+        <strong
+          >To create a new one you have to go to the seller home page
+          first.</strong
+        >
       </div>
     </div>
   </div>
@@ -120,7 +121,7 @@ export default {
       tzAmount: "",
       colateral: "--",
       buyerPayTime: "",
-      fee: 1.5,
+      fee: 0.05,
       hours: "00",
       minutes: "00",
 
@@ -159,7 +160,7 @@ export default {
         productprice: this.tzAmount,
         colateral: this.colateral,
         fee: this.fee,
-        productdesc: this.productDescription,
+        productdesc: data.productDesc,
         contractname: this.contractName,
         buyerPayTime: this.buyerPayTime,
         sellerPayTime: "2days??",

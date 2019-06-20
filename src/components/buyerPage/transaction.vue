@@ -104,9 +104,10 @@
       >
         <strong>Success!</strong>
         You have successfully submitted the transaction data.
-        <strong>
-          To create a new one you have to go to the buyer home page first.
-        </strong>
+        <strong
+          >To create a new one you have to go to the buyer home page
+          first.</strong
+        >
       </div>
     </div>
   </div>
@@ -117,6 +118,7 @@ import * as Cookies from "js-cookie";
 import PouchDB from "pouchdb";
 import findPlugin from "pouchdb-find";
 import CryptoJs from "crypto-js";
+
 export default {
   name: "transaction",
   data: function() {
@@ -173,8 +175,8 @@ export default {
                 createdon: bArray[obj].createdon,
                 productprice: bArray[obj].productprice,
                 colateral: bArray[obj].colateral,
-                fee: 1.5,
-                productdesc: bArray[obj].id.productdesc,
+                fee: 0.05,
+                productdesc: bArray[obj].productdesc,
                 contractname: bArray[obj].contractname,
                 buyerPayTime: bArray[obj].buyerPayTime,
                 sellerPayTime: bArray[obj].sellerPayTime,
@@ -204,16 +206,11 @@ export default {
       //Cypher
       var ciphertext = CryptoJs.AES.encrypt(
         this.id +
-          " " +
           this.sAdd +
-          " " +
           Cookies.get("address") +
-          " " +
           this.tzAmount +
-          " " +
           this.colateral +
-          " " +
-          "1.5",
+          "0.05",
         this.id
       ).toString();
 

@@ -16,6 +16,8 @@
       </div>
       <div class="w3-container w3-cell">
         <TransactionList></TransactionList>
+        <p>&nbsp;</p>
+        <transactionListAccepted></transactionListAccepted>
       </div>
     </div>
   </div>
@@ -26,6 +28,7 @@ import BuyerAddress from "./buyerPage/buyerAddress.vue";
 import BuyerBalance from "./buyerPage/buyerBalance.vue";
 import TransactionInit from "./buyerPage/transactionInit.vue";
 import TransactionList from "./buyerPage/transactionList.vue";
+import transactionListAccepted from "./buyerPage/transactionListAccepted.vue";
 
 export default {
   name: "Buyer",
@@ -36,7 +39,8 @@ export default {
     BuyerBalance: BuyerBalance,
     TransactionInit: TransactionInit,
     BuyerAddress: BuyerAddress,
-    TransactionList: TransactionList
+    TransactionList: TransactionList,
+    transactionListAccepted: transactionListAccepted
   }
 };
 </script>

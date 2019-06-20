@@ -18,8 +18,8 @@
           <td>{{ trans.selleraddress }}</td>
           <td>{{ trans.contractname }}</td>
           <td>{{ trans.buyeraddress }}</td>
-          <td>{{ trans.buyerPayTime }}</td>
           <td>{{ trans.contractstatus }}</td>
+          <td>{{ trans.buyerPayTime }}</td>
           <td>
             <button
               class="w3-btn w3-round-xlarge w3-blue w3-hover-light-gray w3-text-white"
@@ -121,7 +121,10 @@ export default {
       })
         .then(function() {
           return db.find({
-            selector: { selleraddress: { $gt: null } },
+            selector: {
+              selleraddress: { $gt: null },
+              contractstatus: { $eq: "Waiting..." }
+            },
             sort: ["selleraddress"]
           });
         })
