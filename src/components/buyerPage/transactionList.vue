@@ -3,11 +3,11 @@
     <div class="component-container" style="width: 100%">
       <table class="w3-table w3-bordered w3-centered w3-striped">
         <tr>
-          <th>Address</th>
+          <th>Seller Address</th>
           <th>Contract Name</th>
-          <th>Date of Creation</th>
           <th>Buyer Address</th>
           <th>Contract Status</th>
+          <th>Buyer Pay Time</th>
           <th>Details</th>
         </tr>
         <tr
@@ -17,9 +17,9 @@
         >
           <td>{{ trans.selleraddress }}</td>
           <td>{{ trans.contractname }}</td>
-          <td>{{ trans.createdon }}</td>
           <td>{{ trans.buyeraddress }}</td>
           <td>{{ trans.contractstatus }}</td>
+          <td>{{ trans.buyerPayTime }}</td>
           <td>
             <button
               class="w3-btn w3-round-xlarge w3-blue w3-hover-light-gray w3-text-white"
@@ -65,9 +65,6 @@
                 class="component-container"
                 style="border: 0.7px solid gray;"
               >
-                <h5>Seller Address:</h5>
-                <p>{{ trans.selleraddress }}</p>
-                <hr style="border: 0.7px solid gray;" />
                 <h5 class>Contract Name:</h5>
                 <p>{{ trans.contractname }}</p>
                 <hr style="border: 0.7px solid gray;" />
@@ -124,7 +121,10 @@ export default {
       })
         .then(function() {
           return db.find({
-            selector: { selleraddress: { $gt: null } },
+            selector: {
+              selleraddress: { $gt: null },
+              contractstatus: { $eq: "Waiting..." }
+            },
             sort: ["selleraddress"]
           });
         })
@@ -142,6 +142,7 @@ export default {
               fee: 1.5,
               productdesc: result.docs[i].productdesc,
               contractname: result.docs[i].contractname,
+              buyerPayTime: result.docs[i].buyerPayTime,
               updatedate: result.docs[i].updatedate,
               buyeraddress: result.docs[i].buyeraddress,
               hxsc: result.docs[i].hxsc,

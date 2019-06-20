@@ -101,7 +101,8 @@ export default {
     return {
       isFocus: false,
       address: "",
-      status: false
+      status: false,
+      keys: ""
     };
   },
   computed: {
@@ -179,6 +180,10 @@ export default {
         Cookies.set("address", data.addrss);
         window.location.reload(true);
       }
+
+      //keys generated for escrow..
+      Cookies.set("escrowPhk", "tz1SL1KC6TwEuaMtSXLM7P51DFekbzytRX2z");
+      console.log(this.keys);
     },
     disconnect: function() {
       Cookies.remove("address");

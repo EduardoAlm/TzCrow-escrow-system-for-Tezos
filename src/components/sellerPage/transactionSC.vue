@@ -1,7 +1,13 @@
 <template>
   <div>
+    <p></p>
     <h2>Transaction Information</h2>
-    <div class="component-container w3-display-middle" style="width: 40%">
+    <p>&nbsp;</p>
+    <div
+      class="component-container"
+      style="width: 40%;
+    margin: 0 auto;"
+    >
       <h4>Product Price</h4>
       <input
         :id="tzAmount"
@@ -26,12 +32,29 @@
         @keyup="checkName"
         @keypress="checkNull"
       />
-      <div style="margin-top:30px">
-        <div class="alert alert-warning" v-if="cnFlag">
-          <strong>Warning!</strong> There is already a contract with that name.
-          Please change it.
+      <div style="margin-top:30px"></div>
+      <h4>Buyer Payment Time</h4>
+      <div class="w3-row">
+        <div class="w3-cell w3-half">
+          <input
+            :id="hours"
+            v-model="hours"
+            class="w3-input w3-border-5 w3-hover-border-green w3-round-large w3-light-grey"
+            style="width:16%;margin-left:220px;border: 2px solid grey"
+            type="text"
+          />
+        </div>
+        <div class="w3-cell w3-half">
+          <input
+            :id="minutes"
+            v-model="minutes"
+            class="w3-input w3-border-5 w3-hover-border-green w3-round-large w3-light-grey"
+            style="width:16%;margin-right:180px;border: 2px solid grey"
+            type="text"
+          />
         </div>
       </div>
+      <label class="w3-text-light-green" style>Format 'hh:mm'</label>
       <h4>Product Description</h4>
       <input
         :id="productDescription"
@@ -39,7 +62,7 @@
         class="w3-input w3-border-5 w3-hover-border-green w3-round-large w3-light-grey"
         style="border:2px solid grey"
         type="text"
-        @keypress="checkNull"
+        @keyup="checkNull"
       />
       <div style="margin-top:30px"></div>
       <h4>Fee</h4>
@@ -48,7 +71,7 @@
         class="w3-input w3-border-5 w3-hover-border-green w3-round-large w3-light-grey"
         style="border:2px solid grey"
         type="text"
-        >1.5%</label
+        >0.05%</label
       >
 
       <p>&nbsp;</p>
@@ -97,7 +120,11 @@ export default {
       contractName: "",
       tzAmount: "",
       colateral: "--",
-      fee: 1.5,
+      buyerPayTime: "",
+      fee: 0.05,
+      hours: "00",
+      minutes: "00",
+
       cnFlag: false,
       nullFlag: true,
       createFlag: false
@@ -122,27 +149,31 @@ export default {
       console.log(data.tz);
       console.log(data.col);
       console.log(this.fee);
-
+      this.buyerPayTime =
+        this.hours.toString() + ":" + this.minutes.toString() + ":00";
       var dt = new Date();
       var db = new PouchDB("http://localhost:5984/sc_cid");
       var doc = {
         _id: (dt.getTime() / 1000).toString(),
         selleraddress: Cookies.get("address"),
-        createdon: dt.toUTCString(),
+        createdon: dt.toTimeString(),
         productprice: this.tzAmount,
         colateral: this.colateral,
         fee: this.fee,
-        productdesc: this.productDescription,
+        productdesc: data.productDesc,
         contractname: this.contractName,
+        buyerPayTime: this.buyerPayTime,
+        sellerPayTime: "2days??",
         buyeraddress: "",
         updatedate: "",
         hxsc: "",
-        contractstatus: "Created..."
+        contractstatus: "Waiting..."
       };
       db.put(doc);
       this.productDescription = "";
       this.contractName = "";
       this.tzAmount = "";
+      this.buyerPayTime = "";
       this.nullFlag = true;
       this.createFlag = true;
       Cookies.remove("arrayCN");

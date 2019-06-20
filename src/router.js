@@ -4,8 +4,6 @@ import Home from "./views/Home.vue";
 import GetStarted from "./views/Introduction.vue";
 import How from "./views/How.vue";
 import Fee from "./views/Fee.vue";
-import Benefit from "./views/Benefit.vue";
-import With from "./views/With.vue";
 import Buy from "./views/Buy.vue";
 import Sell from "./views/Sell.vue";
 import Trans from "./views/Trans.vue";
@@ -35,16 +33,6 @@ export const router = new Router({
       path: "/fee",
       name: "Fees",
       component: Fee
-    },
-    {
-      path: "/benefit",
-      name: "Benefits",
-      component: Benefit
-    },
-    {
-      path: "/with",
-      name: "Withdraw",
-      component: With
     },
     {
       path: "/buy",

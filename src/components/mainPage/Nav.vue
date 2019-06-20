@@ -43,18 +43,8 @@ export default {
         },
         {
           id: 3,
-          text: "Fees",
+          text: "Fees/Benefits/Withdraw",
           page: "/fee"
-        },
-        {
-          id: 4,
-          text: "Benefits",
-          page: "/benefit"
-        },
-        {
-          id: 5,
-          text: "Withdraw",
-          page: "/with"
         }
       ]
     };

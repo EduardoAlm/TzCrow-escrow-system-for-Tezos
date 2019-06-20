@@ -2,6 +2,7 @@
 <template>
   <div>
     <div class="w3-container w3-center">
+      <p></p>
       <h2>Seller</h2>
     </div>
     <p>&nbsp;</p>
@@ -15,6 +16,8 @@
       </div>
       <div class="w3-container w3-cell">
         <TransactionListSeller></TransactionListSeller>
+        <p>&nbsp;</p>
+        <TransactionListSellerAccepted></TransactionListSellerAccepted>
       </div>
     </div>
   </div>
@@ -25,6 +28,7 @@ import SellerAddress from "./sellerPage/sellerAddress.vue";
 import SellerBalance from "./sellerPage/sellerBalance.vue";
 import TransactionCreate from "./sellerPage/transactionCreate.vue";
 import TransactionListSeller from "./sellerPage/transactionListSeller.vue";
+import TransactionListSellerAccepted from "./sellerPage/transactionListSellerAccepted.vue";
 
 export default {
   name: "Seller",
@@ -35,7 +39,8 @@ export default {
     SellerBalance: SellerBalance,
     TransactionCreate: TransactionCreate,
     SellerAddress: SellerAddress,
-    TransactionListSeller: TransactionListSeller
+    TransactionListSeller: TransactionListSeller,
+    TransactionListSellerAccepted: TransactionListSellerAccepted
   }
 };
 </script>

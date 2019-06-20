@@ -30,7 +30,7 @@
       </table>
 
       <modal
-        name="detailsSellerModal"
+        name="detailsSellerModalAcc"
         height="auto"
         :scrollable="true"
         @before-open="beforeOpen"
@@ -120,7 +120,7 @@ function find() {
       return db.find({
         selector: {
           selleraddress: { $eq: Cookies.get("address") },
-          contractstatus: { $eq: "Waiting..." }
+          contractstatus: { $eq: "Accepted!" }
         },
         sort: ["selleraddress"]
       });
@@ -148,7 +148,7 @@ function find() {
 }
 
 export default {
-  name: "TransactionListSeller",
+  name: "TransactionListSellerAccepted",
   data: function() {
     return {
       transArray: null,
@@ -158,7 +158,7 @@ export default {
   methods: {
     modal: function(event) {
       console.log(event);
-      this.$modal.show("detailsSellerModal", { text: event });
+      this.$modal.show("detailsSellerAccModal", { text: event });
     },
     find: function() {},
     beforeOpen(event) {

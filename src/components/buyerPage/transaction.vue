@@ -1,7 +1,13 @@
 <template>
   <div>
+    <p></p>
     <h2>Transaction Information</h2>
-    <div class="component-container w3-display-middle" style="width: 40%">
+    <p>&nbsp;</p>
+    <div
+      class="component-container"
+      style="width: 40%;
+    margin: 0 auto;"
+    >
       <h4>Seller Address</h4>
       <input
         :id="sAdd"
@@ -80,7 +86,7 @@
           @click="getInfo"
           disabled
         >
-          Make Transaction
+          Accept Transaction
         </button>
       </div>
       <div v-else>
@@ -88,7 +94,7 @@
           class="w3-button w3-round w3-green w3-hover-opacity"
           @click="getInfo"
         >
-          Make Transaction
+          Accept Transaction
         </button>
       </div>
       <div
@@ -111,6 +117,8 @@
 import * as Cookies from "js-cookie";
 import PouchDB from "pouchdb";
 import findPlugin from "pouchdb-find";
+import CryptoJs from "crypto-js";
+
 export default {
   name: "transaction",
   data: function() {
@@ -121,7 +129,7 @@ export default {
       colateral: "--",
       createFlag: false,
       nullFlag: true,
-
+      id: "",
       checkFlagAdd: false,
       checkFlagCN: false,
       checkFlagA: false,
@@ -157,6 +165,7 @@ export default {
           PouchDB.plugin(findPlugin);
           var db = new PouchDB("http://localhost:5984/sc_cid");
           var dt = new Date();
+          this.id = bArray[obj].id;
           db.get(bArray[obj].id)
             .then(function(doc) {
               return db.put({
@@ -166,13 +175,15 @@ export default {
                 createdon: bArray[obj].createdon,
                 productprice: bArray[obj].productprice,
                 colateral: bArray[obj].colateral,
-                fee: 1.5,
-                productdesc: bArray[obj].id.productdesc,
+                fee: 0.05,
+                productdesc: bArray[obj].productdesc,
                 contractname: bArray[obj].contractname,
+                buyerPayTime: bArray[obj].buyerPayTime,
+                sellerPayTime: bArray[obj].sellerPayTime,
                 updatedate: dt.toUTCString(),
                 buyeraddress: Cookies.get("address"),
                 hxsc: "",
-                contractstatus: "In Process..."
+                contractstatus: "Accepted!"
               });
             })
             .then(function(response) {
@@ -189,7 +200,27 @@ export default {
       this.contractName = "";
       this.tzAmount = "";
       this.checkNull = true;
-      Cookies.remove("bArray");
+      this.generateContract();
+    },
+    generateContract: function() {
+      //Cypher
+      var ciphertext = CryptoJs.AES.encrypt(
+        this.id +
+          this.sAdd +
+          Cookies.get("address") +
+          this.tzAmount +
+          this.colateral +
+          "0.05",
+        this.id
+      ).toString();
+
+      console.log(ciphertext);
+
+      // Decypher
+      var bytes = CryptoJs.AES.decrypt(ciphertext, this.id);
+      var originalText = bytes.toString(CryptoJs.enc.Utf8);
+
+      console.log(originalText);
     },
     getBal() {
       var bal;
