@@ -124,9 +124,10 @@
       >
         <strong>Success!</strong>
         You have successfully submitted the transaction data.
-        <strong>
-          To create a new one you have to go to the seller home page first.
-        </strong>
+        <strong
+          >To create a new one you have to go to the seller home page
+          first.</strong
+        >
       </div>
     </div>
   </div>
@@ -189,7 +190,7 @@ export default {
         productdesc: data.productDesc,
         contractname: this.contractName,
         buyerPayTime: this.buyerPayTime,
-        sellerPayTime: "2days??",
+        sellerPayTime: "5 days",
         buyeraddress: "",
         updatedate: "",
         hxsc: "",
