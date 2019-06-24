@@ -32,7 +32,7 @@
       </table>
 
       <modal
-        name="detailsBuyerModal"
+        name="detailsBuyerModalAccepted"
         height="auto"
         :scrollable="true"
         @before-open="beforeOpen"
@@ -41,20 +41,24 @@
         <div class="w3-container w3-row">
           <div class="w3-cell-row">
             <div class="w3-container w3-cell-top w3-display-topleft">
-              <h3 class="w3-text-blue">Transaction Details</h3>
+              <h3 class="w3-text-blue" style="margin-top:10px">
+                Transaction Details
+              </h3>
             </div>
             <div class="w3-container w3-cell-top w3-display-topright">
               <button
                 class="w3-button w3-white w3-border-white w3-shadow-white w3-hover-white"
-                @click="$modal.hide('detailsBuyerModal')"
+                style="width:40px;height:30px"
+                @click="$modal.hide('detailsBuyerModalAccepted')"
               >
                 <img
                   src="../../assets/cross.png"
-                  style="width:20px;heigth:30px"
+                  style="width:20px;height:20px"
                 />
               </button>
             </div>
           </div>
+          <p></p>
         </div>
         <p>&nbsp;</p>
         <div class="w3-container w3-row">
@@ -89,6 +93,30 @@
             </div>
           </div>
         </div>
+        <p></p>
+        <div
+          class="component-container w3-center"
+          style="margin-left: auto;
+    margin-right: auto;width:400px"
+        >
+          <div class="w3-row">
+            <div class="w3-cell w3-half">
+              <button
+                class="w3-btn w3-round-xlarge w3-blue w3-hover-light-gray w3-text-white"
+              >
+                Refund Request
+              </button>
+            </div>
+            <div class="w3-cell w3-half">
+              <button
+                class="w3-btn w3-round-xlarge w3-blue w3-hover-light-gray w3-text-white"
+              >
+                Release Funds
+              </button>
+            </div>
+          </div>
+        </div>
+        <p>&nbsp;</p>
       </modal>
     </div>
   </div>
@@ -109,7 +137,7 @@ export default {
   methods: {
     modal: function(event) {
       console.log(event);
-      this.$modal.show("detailsBuyerModal", { text: event });
+      this.$modal.show("detailsBuyerModalAccepted", { text: event });
     },
     find: function() {
       PouchDB.plugin(findPlugin);

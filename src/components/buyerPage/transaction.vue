@@ -104,10 +104,9 @@
       >
         <strong>Success!</strong>
         You have successfully submitted the transaction data.
-        <strong
-          >To create a new one you have to go to the buyer home page
-          first.</strong
-        >
+        <strong>
+          To create a new one you have to go to the buyer home page first.
+        </strong>
       </div>
     </div>
   </div>
@@ -125,7 +124,7 @@ export default {
     return {
       sAdd: "",
       contractName: "",
-      tzAmount: "",
+      tzAmount: "0",
       colateral: "--",
       createFlag: false,
       nullFlag: true,
@@ -133,7 +132,8 @@ export default {
       checkFlagAdd: false,
       checkFlagCN: false,
       checkFlagA: false,
-      checkFlagBal: true
+      checkFlagBal: true,
+      bal: ""
     };
   },
   methods: {
@@ -160,7 +160,7 @@ export default {
         if (
           this.contractName === bArray[obj].contractname &&
           data.sAddress === bArray[obj].selleraddress &&
-          this.tzAmount === bArray[obj].productprice
+          data.tz === bArray[obj].productprice
         ) {
           PouchDB.plugin(findPlugin);
           var db = new PouchDB("http://localhost:5984/sc_cid");
@@ -198,7 +198,7 @@ export default {
       this.createFlag = true;
       this.sAdd = "";
       this.contractName = "";
-      this.tzAmount = "";
+      this.tzAmount = "0";
       this.checkNull = true;
       this.generateContract();
     },
@@ -223,19 +223,17 @@ export default {
       console.log(originalText);
     },
     getBal() {
-      var bal;
       const eztz = window.eztz;
       eztz.node.setProvider("http://localhost:18731");
       eztz.rpc
         .getBalance(Cookies.get("address"))
         .then(res => {
-          bal = res;
+          this.bal = res;
           console.log(res);
         })
         .catch(e => {
           console.log(e);
         });
-      return bal;
     },
     checkAddress() {
       var bArray = JSON.parse(Cookies.get("bArray"));
@@ -279,7 +277,7 @@ export default {
       var bArray = JSON.parse(Cookies.get("bArray"));
       console.log(bArray);
 
-      var balance = this.getBal();
+      this.getBal();
       for (var obj in bArray) {
         if (
           this.contractName === bArray[obj].contractname &&
@@ -287,10 +285,12 @@ export default {
           this.tzAmount === bArray[obj].productprice
         ) {
           var col = this.tzAmount * 0.5;
-          var total = col + this.tzAmount;
-          if (balance <= 0 || total > balance) {
+          var total = col + parseInt(this.tzAmount, 10);
+          console.log(col);
+          console.log(total);
+          if (this.bal <= 0 || total > this.bal) {
             this.checkFlagBal = false;
-            console.log(balance);
+            console.log(this.bal);
             console.log("false");
           } else {
             this.checkFlagA = true;
