@@ -46,6 +46,7 @@
             <div class="w3-container w3-cell-top w3-display-topright">
               <button
                 class="w3-button w3-white w3-border-white w3-shadow-white w3-hover-white"
+                style="width:40px;height:30px"
                 @click="$modal.hide('detailsSellerModal')"
               >
                 <img
@@ -55,6 +56,7 @@
               </button>
             </div>
           </div>
+          <p></p>
         </div>
         <p>&nbsp;</p>
         <div class="w3-container w3-row">
@@ -98,6 +100,7 @@
             </div>
           </div>
         </div>
+        <p></p>
       </modal>
     </div>
   </div>

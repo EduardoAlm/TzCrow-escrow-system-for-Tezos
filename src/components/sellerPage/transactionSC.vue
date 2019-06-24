@@ -16,11 +16,16 @@
         style="border:2px solid grey"
         type="text"
         @keypress="checkNull"
+        @mouseover="checkTime"
+        @keyup="checkAmount"
       />
       <label class="w3-text-light-green" style>
         Collateral is 50% of the transaction required amount:
         {{ this.tzAmount * 0.5 }} tz
       </label>
+      <div v-if="checkFlagBal === false">
+        <label class="w3-text-red" style>You dont have enough xtz!</label>
+      </div>
       <div style="margin-top:30px"></div>
       <h4>Transaction Title</h4>
       <input
@@ -31,30 +36,47 @@
         type="text"
         @keyup="checkName"
         @keypress="checkNull"
+        @mouseover="checkTime"
       />
       <div style="margin-top:30px"></div>
       <h4>Buyer Payment Time</h4>
-      <div class="w3-row">
-        <div class="w3-cell w3-half">
-          <input
-            :id="hours"
-            v-model="hours"
-            class="w3-input w3-border-5 w3-hover-border-green w3-round-large w3-light-grey"
-            style="width:16%;margin-left:220px;border: 2px solid grey"
-            type="text"
-          />
-        </div>
-        <div class="w3-cell w3-half">
-          <input
-            :id="minutes"
-            v-model="minutes"
-            class="w3-input w3-border-5 w3-hover-border-green w3-round-large w3-light-grey"
-            style="width:16%;margin-right:180px;border: 2px solid grey"
-            type="text"
-          />
+
+      <div
+        class="component-container w3-center"
+        style="margin-left: auto;
+    margin-right: auto;width:110px"
+      >
+        <div class="w3-row">
+          <div class="w3-cell w3-half">
+            <input
+              :id="hours"
+              v-model="hours"
+              class="w3-input w3-border-5 w3-hover-border-green w3-round-large w3-light-grey"
+              style="width:40px;border: 2px solid grey"
+              type="text"
+            />
+          </div>
+
+          <div class="w3-cell w3-half">
+            <input
+              :id="minutes"
+              v-model="minutes"
+              class="w3-input w3-border-5 w3-hover-border-green w3-round-large w3-light-grey"
+              style="width:40px;border: 2px solid grey"
+              type="text"
+            />
+          </div>
         </div>
       </div>
-      <label class="w3-text-light-green" style>Format 'hh:mm'</label>
+      <div
+        class="alert alert-warning"
+        style="margin-top:20px"
+        v-if="checktimeFlag == true"
+      >
+        <strong>Warning!</strong>
+        The time limit you set in not allowed.
+      </div>
+      <label class="w3-text-light-green" style>Format 'h:m'</label>
       <h4>Product Description</h4>
       <input
         :id="productDescription"
@@ -63,6 +85,7 @@
         style="border:2px solid grey"
         type="text"
         @keyup="checkNull"
+        @mouseover="checkTime"
       />
       <div style="margin-top:30px"></div>
       <h4>Fee</h4>
@@ -79,6 +102,7 @@
         <button
           class="w3-button w3-round w3-green w3-hover-opacity"
           @click="getInfo"
+          @mouseover="checkTime"
           disabled
         >
           Create Transaction
@@ -88,6 +112,7 @@
         <button
           class="w3-button w3-round w3-green w3-hover-opacity"
           @click="getInfo"
+          @mouseover="checkTime"
         >
           Create Transaction
         </button>
@@ -99,10 +124,9 @@
       >
         <strong>Success!</strong>
         You have successfully submitted the transaction data.
-        <strong
-          >To create a new one you have to go to the seller home page
-          first.</strong
-        >
+        <strong>
+          To create a new one you have to go to the seller home page first.
+        </strong>
       </div>
     </div>
   </div>
@@ -118,16 +142,18 @@ export default {
     return {
       productDescription: "",
       contractName: "",
-      tzAmount: "",
+      tzAmount: "0",
       colateral: "--",
       buyerPayTime: "",
       fee: 0.05,
-      hours: "00",
-      minutes: "00",
-
+      hours: "5",
+      minutes: "0",
+      checktimeFlag: false,
       cnFlag: false,
       nullFlag: true,
-      createFlag: false
+      createFlag: false,
+      checkFlagBal: true,
+      bal: ""
     };
   },
   methods: {
@@ -190,6 +216,20 @@ export default {
         this.nullFlag = false;
       }
     },
+    checkTime() {
+      if (
+        this.hours < 5 ||
+        this.hours > 48 ||
+        this.minutes < 0 ||
+        this.minutes > 60
+      ) {
+        this.hours = 5;
+        this.minutes = 0;
+        this.checktimeFlag = true;
+      } else {
+        this.checktimeFlag = false;
+      }
+    },
     checkName() {
       this.cnFlag = false;
       var verif = 0;
@@ -208,6 +248,30 @@ export default {
       } else {
         this.cnFlag = false;
         console.log("false");
+      }
+    },
+    getBal() {
+      const eztz = window.eztz;
+      eztz.node.setProvider("http://localhost:18731");
+      eztz.rpc
+        .getBalance(Cookies.get("address"))
+        .then(res => {
+          this.bal = res;
+          console.log(res);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    },
+    checkAmount() {
+      this.getBal();
+      console.log(this.bal);
+      console.log(this.checkFlagBal);
+      console.log(this.tzAmount * 0.5);
+      if (this.bal <= 0 || this.tzAmount * 0.5 > this.bal) {
+        this.checkFlagBal = false;
+      } else {
+        this.checkFlagBal = true;
       }
     }
   }
