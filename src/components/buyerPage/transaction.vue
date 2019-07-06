@@ -104,9 +104,10 @@
       >
         <strong>Success!</strong>
         You have successfully submitted the transaction data.
-        <strong>
-          To create a new one you have to go to the buyer home page first.
-        </strong>
+        <strong
+          >To create a new one you have to go to the buyer home page
+          first.</strong
+        >
       </div>
     </div>
   </div>
@@ -116,7 +117,7 @@
 import * as Cookies from "js-cookie";
 import PouchDB from "pouchdb";
 import findPlugin from "pouchdb-find";
-import CryptoJs from "crypto-js";
+import contract from "../contract.js";
 
 export default {
   name: "transaction",
@@ -138,6 +139,8 @@ export default {
   },
   methods: {
     getInfo() {
+      var res = contract();
+      console.log(res);
       let data = {
         sAddress: this.sAdd,
         cName: this.contractName,
@@ -200,27 +203,6 @@ export default {
       this.contractName = "";
       this.tzAmount = "0";
       this.checkNull = true;
-      this.generateContract();
-    },
-    generateContract: function() {
-      //Cypher
-      var ciphertext = CryptoJs.AES.encrypt(
-        this.id +
-          this.sAdd +
-          Cookies.get("address") +
-          this.tzAmount +
-          this.colateral +
-          "0.05",
-        this.id
-      ).toString();
-
-      console.log(ciphertext);
-
-      // Decypher
-      var bytes = CryptoJs.AES.decrypt(ciphertext, this.id);
-      var originalText = bytes.toString(CryptoJs.enc.Utf8);
-
-      console.log(originalText);
     },
     getBal() {
       const eztz = window.eztz;

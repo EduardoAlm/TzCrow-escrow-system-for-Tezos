@@ -1,0 +1,59 @@
+baker/escrow
+bootstrap1: tz1KqTpEZ7Yob7QbPE4Hy4Wo8fHG8LhKxZSx
+dapp
+bootstrap5: tz1ddb9NMYHZi5UzPdzTZMYQQZoMub195zgv
+seller
+bootstrap2: tz1gjaF81ZRRvdzjobyfVNsAeSC6PScjfQwN
+buyer
+bootstrap3: tz1faswCTDciRzE4oJ9jn2Vm2dvjeyA9fUzU
+
+echo "seller"
+tezos-client get balance for bootstrap2 
+echo "buyer"
+tezos-client get balance for bootstrap3
+echo "escrow" 
+tezos-client get balance for bootstrap1
+echo "baker" 
+tezos-client get balance for bootstrap5
+
+parameter unit ;
+storage (pair string nat) ;
+code { DUP ;
+       DIP { CDR } ;
+       CAR ;
+       { DIP { DUP @storage } ; SWAP } ;
+       DUP ;
+       CAR ;
+       SWAP ;
+       DROP ;
+       DIP { DROP } ;
+       PUSH nat 1 ;
+       { DIP { DIP { DUP } ; SWAP } ; SWAP } ;
+       { DIP { DIP { DIP { DROP } } } } ;
+       CDR ;
+       ADD ;
+       SWAP ;
+       PAIR @storage ;
+       NIL operation ;
+       PAIR } }
+
+       parameter unit ;
+storage (pair string nat) ;
+code { DUP ;
+       DIP { CDR } ;
+       CAR ;
+       DIP { DUP } ; SWAP ;
+       DUP ;
+       CAR ;
+       SWAP ;
+       DROP ;
+       DIP { DROP } ;
+       PUSH nat 1 ;
+       DIP { DIP { DUP } ; SWAP } ; SWAP ;
+       DIP { DIP { DIP { DROP } } } ;
+       CDR ;
+       ADD ;
+       SWAP ;
+       PAIR ;
+       NIL operation ;
+       PAIR } }

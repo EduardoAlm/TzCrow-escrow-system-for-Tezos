@@ -12,7 +12,7 @@
         <tr
           v-for="trans in transArray"
           v-bind:key="trans._id"
-          class="w3-hover-orange"
+          class="w3-hover-light-gray"
         >
           <td>{{ trans.selleraddress }}</td>
           <td>{{ trans.contractname }}</td>

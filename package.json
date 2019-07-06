@@ -10,6 +10,7 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "commonjs": "0.0.1",
     "core-js": "^2.6.5",
     "couchdb": "^0.3.8",
     "crypto-js": "^3.1.9-1",
@@ -29,6 +30,7 @@
     "vuex-persistedstate": "^2.5.4"
   },
   "devDependencies": {
+    "@types/node": "^12.0.12",
     "@vue/cli-plugin-babel": "^3.8.0",
     "@vue/cli-plugin-e2e-nightwatch": "^3.8.0",
     "@vue/cli-plugin-eslint": "^3.8.0",
@@ -40,6 +42,7 @@
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^24.8.0",
+    "conseiljs": "^0.2.6",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "lint-staged": "^8.1.5",

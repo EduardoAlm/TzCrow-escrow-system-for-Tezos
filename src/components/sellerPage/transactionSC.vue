@@ -98,7 +98,7 @@
       >
 
       <p>&nbsp;</p>
-      <div v-if="cnFlag == true || nullFlag == true">
+      <div v-if="cnFlag == false || nullFlag == true">
         <button
           class="w3-button w3-round w3-green w3-hover-opacity"
           @click="getInfo"
@@ -117,19 +117,20 @@
           Create Transaction
         </button>
       </div>
-      <div
-        class="alert alert-success"
-        style="margin-top:20px"
-        v-if="createFlag == true"
-      >
-        <strong>Success!</strong>
-        You have successfully submitted the transaction data.
-        <strong
-          >To create a new one you have to go to the seller home page
-          first.</strong
-        >
-      </div>
     </div>
+    <div
+      class="alert alert-success"
+      style="margin-top:20px"
+      v-if="createFlag == true"
+    >
+      <strong>Success!</strong>
+      You have successfully submitted the transaction data.
+      <strong>
+        To create a new one you have to go to the seller home page first.
+      </strong>
+    </div>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
   </div>
 </template>
 
@@ -147,8 +148,8 @@ export default {
       colateral: "--",
       buyerPayTime: "",
       fee: 0.05,
-      hours: "5",
-      minutes: "0",
+      hours: "05",
+      minutes: "00",
       checktimeFlag: false,
       cnFlag: false,
       nullFlag: true,
@@ -176,8 +177,7 @@ export default {
       console.log(data.tz);
       console.log(data.col);
       console.log(this.fee);
-      this.buyerPayTime =
-        this.hours.toString() + ":" + this.minutes.toString() + ":00";
+      this.buyerPayTime = this.hours.toString() + ":" + this.minutes.toString();
       var dt = new Date();
       var db = new PouchDB("http://localhost:5984/sc_cid");
       var doc = {
@@ -202,6 +202,7 @@ export default {
       this.tzAmount = "";
       this.buyerPayTime = "";
       this.nullFlag = true;
+      this.cnFlag = false;
       this.createFlag = true;
       Cookies.remove("arrayCN");
     },
@@ -244,10 +245,10 @@ export default {
         console.log(arrayCN[obj]);
       }
       if (verif > 0) {
-        this.cnFlag = true;
+        this.cnFlag = false;
         this.contractName = "";
       } else {
-        this.cnFlag = false;
+        this.cnFlag = true;
         console.log("false");
       }
     },

@@ -12,9 +12,8 @@ let%init
   {
     owners =
       ((Set
-          ([(tz1b7tUupMgCNw2cCLpKTkSD1NZzB5TkP2sv : address);
-            (tz1ddb9NMYHZi5UzPdzTZMYQQZoMub195zgv : address);
-            (tz1SL1KC6TwEuaMtSXLM7P51DFekbzytRX2z : address)]))
+          ([(tz1er1LyqvuZ4rfF8NvZqmnCmTRfFoaacqKr : address); 
+            (tz1KqTpEZ7Yob7QbPE4Hy4Wo8fHG8LhKxZSx : address)]))
          [@explicit_arity ]);
     last_proposition = None;
     owners_signed = Set
@@ -43,14 +42,7 @@ let delete_proposition storage transactions =
   (transactions,
    { owners = (storage.owners); last_proposition = None; owners_signed = Set
    })
-  
-[%%entry
-  let delete_proposition (_ : unit) storage =
-    if can_call storage
-    then delete_proposition storage []
-    else
-      Current.failwith "Only contracts owners can sign transaction proposals"
-]
+
 [%%entry
   let sign_proposition (_ : unit) storage =
     if can_call storage
