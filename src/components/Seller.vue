@@ -20,6 +20,16 @@
         <TransactionListSellerAccepted></TransactionListSellerAccepted>
       </div>
     </div>
+    <p>&nbsp;</p>
+    <div class="component-container w3-center">
+      <p></p>
+      <h5>
+        After you verify that the transaction has been accepted please transfer
+        the funds to the escrow:
+      </h5>
+      <p></p>
+      <h6>tz1ddb9NMYHZi5UzPdzTZMYQQZoMub195zgv</h6>
+    </div>
   </div>
 </template>
 

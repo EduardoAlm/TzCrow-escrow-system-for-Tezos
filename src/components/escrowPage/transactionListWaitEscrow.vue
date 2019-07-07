@@ -3,11 +3,14 @@
     <div class="component-container" style="width: 100%">
       <table class="w3-table w3-bordered w3-centered w3-striped">
         <tr>
+          <th>Your Address</th>
           <th>Seller Address</th>
-          <th>Contract Name</th>
           <th>Buyer Address</th>
-          <th>Contract Status</th>
-          <th>Buyer Pay Time</th>
+          <th>Contract Name:</th>
+          <th>Buyer Response</th>
+          <th>Seller Response</th>
+          <th>Buyer Pay Time:</th>
+          <th>Seller Pay Time:</th>
           <th>Details</th>
         </tr>
         <tr
@@ -15,11 +18,14 @@
           v-bind:key="trans._id"
           class="w3-hover-light-gray"
         >
+          <td>{{ trans.escrowaddress }}</td>
           <td>{{ trans.selleraddress }}</td>
-          <td>{{ trans.contractname }}</td>
           <td>{{ trans.buyeraddress }}</td>
-          <td>{{ trans.contractstatus }}</td>
+          <td>{{ trans.contractname }}</td>
+          <td>{{ trans.buyerResponse }}</td>
+          <td>{{ trans.sellerResponse }}</td>
           <td>{{ trans.buyerPayTime }}</td>
+          <td>{{ trans.sellerPayTime }}</td>
           <td>
             <button
               class="w3-btn w3-round-xlarge w3-blue w3-hover-light-gray w3-text-white"
@@ -32,7 +38,7 @@
       </table>
 
       <modal
-        name="detailsBuyerModal"
+        name="detailsEscrowModal"
         height="auto"
         :scrollable="true"
         @before-open="beforeOpen"
@@ -49,7 +55,7 @@
               <button
                 class="w3-button w3-white w3-border-white w3-shadow-white w3-hover-white"
                 style="width:40px;height:30px"
-                @click="$modal.hide('detailsBuyerModal')"
+                @click="$modal.hide('detailsEscrowModal')"
               >
                 <img
                   src="../../assets/cross.png"
@@ -69,9 +75,6 @@
                 class="component-container"
                 style="border: 0.7px solid gray;"
               >
-                <h5 class>Contract Name:</h5>
-                <p>{{ trans.contractname }}</p>
-                <hr style="border: 0.7px solid gray;" />
                 <h5 class>Date of Creation:</h5>
                 <p>{{ trans.createdon }}</p>
                 <hr style="border: 0.7px solid gray;" />
@@ -89,11 +92,39 @@
                 <hr style="border: 0.7px solid gray;" />
                 <h5>Date of Update:</h5>
                 <p>{{ trans.updatedate }}</p>
+                <hr style="border: 0.7px solid gray;" />
+                <h5>Smart Contract Address:</h5>
+                <p>{{ trans.hxsc }}</p>
               </div>
             </div>
           </div>
         </div>
         <p></p>
+        <div
+          class="component-container w3-center"
+          style="margin-left: auto;
+    margin-right: auto;width:400px"
+        >
+          <div class="w3-row">
+            <div class="w3-cell w3-half">
+              <button
+                class="w3-btn w3-round-xlarge w3-blue w3-hover-light-gray w3-text-white"
+                @click="this.sign"
+              >
+                Sign Transaction
+              </button>
+            </div>
+            <div class="w3-cell w3-half">
+              <button
+                class="w3-btn w3-round-xlarge w3-blue w3-hover-light-gray w3-text-white"
+              >
+                Execute Transaction
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <p>&nbsp;</p>
       </modal>
     </div>
   </div>
@@ -103,8 +134,40 @@
 import PouchDB from "pouchdb";
 import findPlugin from "pouchdb-find";
 import * as Cookies from "js-cookie";
+import contractsign from "../contractUtils/signcontract.js";
+
+function find() {
+  PouchDB.plugin(findPlugin);
+  var db = new PouchDB("http://localhost:5984/contract_info");
+
+  var arr = [];
+  db.createIndex({
+    index: { fields: ["hxsc"] }
+  })
+    .then(function() {
+      return db.find({
+        selector: {
+          hxsc: { $eq: Cookies.get("contractAddress") }
+        },
+        sort: ["hxsc"]
+      });
+    })
+    .then(function(result) {
+      var i = 0;
+      console.log(result);
+      for (i = 0; i < result.docs.length; i++) {
+        arr.push(result.docs[i]);
+      }
+    })
+    .catch(function(err) {
+      console.log(err);
+    });
+
+  return arr;
+}
+
 export default {
-  name: "TransactionList",
+  name: "TransactionListEscrow",
   data: function() {
     return {
       transArray: null,
@@ -114,55 +177,16 @@ export default {
   methods: {
     modal: function(event) {
       console.log(event);
-      this.$modal.show("detailsBuyerModal", { text: event });
+      this.$modal.show("detailsEscrowModal", { text: event });
     },
-    find: function() {
-      PouchDB.plugin(findPlugin);
-      var db = new PouchDB("http://crow:tezoscrow@/127.0.0.1:5984/sc_cid");
-      var bArray = [];
-      var arr = [];
-      db.createIndex({
-        index: { fields: ["selleraddress"] }
-      })
-        .then(function() {
-          return db.find({
-            selector: {
-              selleraddress: { $gt: null },
-              contractstatus: { $eq: "Waiting..." }
-            },
-            sort: ["selleraddress"]
-          });
-        })
-        .then(function(result) {
-          var i = 0;
-          for (i = 0; i < result.docs.length; i++) {
-            arr.push(result.docs[i]);
-            let data = {
-              id: result.docs[i]._id,
-              rev: result.docs[i]._rev,
-              selleraddress: result.docs[i].selleraddress,
-              createdon: result.docs[i].createdon,
-              productprice: result.docs[i].productprice,
-              colateral: result.docs[i].colateral,
-              fee: 1.5,
-              productdesc: result.docs[i].productdesc,
-              contractname: result.docs[i].contractname,
-              buyerPayTime: result.docs[i].buyerPayTime,
-              updatedate: result.docs[i].updatedate,
-              buyeraddress: result.docs[i].buyeraddress,
-              hxsc: result.docs[i].hxsc,
-              contractstatus: result.docs[i].contractstatus
-            };
-            bArray.push(data);
-            Cookies.set("bArray", bArray);
-            console.log(Cookies.get("bArray"));
-          }
-        })
-        .catch(function(err) {
-          console.log(err);
-        });
-
-      return arr;
+    find: function() {},
+    sign() {
+      var len = this.transArray.length;
+      var i = 0;
+      for (i = 0; i < len; i++) {
+        console.log(this.transArray[i].escrowaddress);
+        contractsign(this.transArray[i].escrowaddress);
+      }
     },
     beforeOpen(event) {
       console.log(event.params.text);
@@ -173,7 +197,7 @@ export default {
     }
   },
   mounted() {
-    var data = this.find();
+    var data = find();
     console.log(data);
     this.transArray = data;
   }

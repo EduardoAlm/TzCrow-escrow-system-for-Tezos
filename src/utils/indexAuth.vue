@@ -189,8 +189,6 @@ export default {
       Cookies.remove("address");
       Cookies.remove("status");
       Cookies.remove("cookAcc");
-      Cookies.remove("bArray");
-      Cookies.remove("arrayCN");
       window.location.reload(true);
     }
   }

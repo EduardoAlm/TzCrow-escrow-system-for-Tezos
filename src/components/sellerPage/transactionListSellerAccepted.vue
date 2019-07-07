@@ -94,6 +94,9 @@
                 <h5>Product Description:</h5>
                 <p>{{ trans.productdesc }}</p>
                 <hr style="border: 0.7px solid gray;" />
+                <h5>Smart Contract Address:</h5>
+                <p>{{ trans.hxsc }}</p>
+                <hr style="border: 0.7px solid gray;" />
                 <h5>Date of Update:</h5>
                 <p>{{ trans.updatedate }}</p>
               </div>

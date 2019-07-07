@@ -1,6 +1,6 @@
 liquidity \
         --tezos-node $NODE_URL \
-        --amount 0tz \
+        --amount 184.5tz \
         --fee 0.05tz \
         --source tz1ddb9NMYHZi5UzPdzTZMYQQZoMub195zgv \
         contract.tz.liq \
@@ -8,16 +8,16 @@ liquidity \
 
 tezos-client sign bytes 0x03$(cat ./contract_deployment_op.bytes) for bootstrap5
 
-edsigtzAna1bo21GoNgonKqEFZhiiH2jawqhBjVLGV76dwq3X4vKusScKYAf1AyZstiLHZU78GcHtdJMQgWybUF5DhsiqMQUB1v
+edsigtfLXvr7ieduLH6aQ4XgLhetCXAtG1yAAAcHKkZWE82KRKjv59xKB6GKUWCvdmqESU1DC7fJhpa1VPV7YXa6fBi8CKaAvxg
 
 liquidity \
    --tezos-node $NODE_URL \
-   --signature edsigtzAna1bo21GoNgonKqEFZhiiH2jawqhBjVLGV76dwq3X4vKusScKYAf1AyZstiLHZU78GcHtdJMQgWybUF5DhsiqMQUB1v \
+   --signature edsigtgu6pbMHskTBRtUxERrZ6s1JtY2kLNp2kdDE5MDXBs2anAYL4gfnZSoSqvZuMtuZXTjPo3G91F3wtTrkGTSYLZFPHijf6j \
 --inject contract_deployment_op.bytes
 
 Operation injected: ooPFUgrFtpEfaUUxoy2QtGV2Jtjc6MFBcbRWmQWKpygpixfn6gr
 
-tezos-client get receipt for ooPFUgrFtpEfaUUxoy2QtGV2Jtjc6MFBcbRWmQWKpygpixfn6gr
+tezos-client get receipt for ooZ4ejojvCuicZaf9tUERQjbaHYqXj6NDKuV98XeZdMWPa2BN4m
 
 /* Receipt
 

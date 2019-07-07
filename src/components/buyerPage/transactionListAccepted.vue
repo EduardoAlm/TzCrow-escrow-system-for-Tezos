@@ -87,6 +87,9 @@
                 <h5>Product Description:</h5>
                 <p>{{ trans.productdesc }}</p>
                 <hr style="border: 0.7px solid gray;" />
+                <h5>Smart Contract Address:</h5>
+                <p>{{ trans.hxsc }}</p>
+                <hr style="border: 0.7px solid gray;" />
                 <h5>Date of Update:</h5>
                 <p>{{ trans.updatedate }}</p>
               </div>
@@ -125,7 +128,6 @@
 <script>
 import PouchDB from "pouchdb";
 import findPlugin from "pouchdb-find";
-import * as Cookies from "js-cookie";
 export default {
   name: "transactionListAccepted",
   data: function() {
@@ -142,7 +144,7 @@ export default {
     find: function() {
       PouchDB.plugin(findPlugin);
       var db = new PouchDB("http://crow:tezoscrow@/127.0.0.1:5984/sc_cid");
-      var bArray = [];
+
       var arr = [];
       db.createIndex({
         index: { fields: ["selleraddress"] }
@@ -160,27 +162,7 @@ export default {
           var i = 0;
           for (i = 0; i < result.docs.length; i++) {
             arr.push(result.docs[i]);
-            let data = {
-              id: result.docs[i]._id,
-              rev: result.docs[i]._rev,
-              selleraddress: result.docs[i].selleraddress,
-              createdon: result.docs[i].createdon,
-              productprice: result.docs[i].productprice,
-              colateral: result.docs[i].colateral,
-              fee: 1.5,
-              productdesc: result.docs[i].productdesc,
-              contractname: result.docs[i].contractname,
-              buyerPayTime: result.docs[i].buyerPayTime,
-              updatedate: result.docs[i].updatedate,
-              buyeraddress: result.docs[i].buyeraddress,
-              hxsc: result.docs[i].hxsc,
-              contractstatus: result.docs[i].contractstatus
-            };
-            bArray.push(data);
-
-            console.log(bArray);
           }
-          Cookies.set("bArray", bArray);
         })
         .catch(function(err) {
           console.log(err);

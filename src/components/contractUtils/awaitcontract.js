@@ -1,32 +1,22 @@
 import * as Cookies from "js-cookie";
 const eztz = window.eztz;
 
-function awaitContract() {
-  Cookies.set("contractAddress", "KT1GQe4bjMc8UGDq1EqTXTAvF5E6uaKhxovA");
+eztz.node.setProvider("http://127.0.0.1:18731");
 
-  eztz.contract.watch("KT1GQe4bjMc8UGDq1EqTXTAvF5E6uaKhxovA", 2, function(s) {
+function awaitContract() {
+  Cookies.set("contractAddress", "KT1Mca6X9LdENFo96Sq7RT4BFJrEU5cHpMot");
+
+  eztz.contract.watch("KT1Mca6X9LdENFo96Sq7RT4BFJrEU5cHpMot", 2, function(s) {
     console.log("New storage", s);
     return s;
   });
 
   eztz.rpc
-    .getBalance("KT1GQe4bjMc8UGDq1EqTXTAvF5E6uaKhxovA")
+    .getBalance("KT1Mca6X9LdENFo96Sq7RT4BFJrEU5cHpMot")
     .then(console.log)
     .catch(console.log);
 }
 
-/*function constractpropose(address, amount) {
-  eztz.contract.send(address);
-}
-
-function contractsign(address) {
-  eztz.contract.send(address);
-}
-
-function contractexecute(address, amount) {
-  eztz.contract.send(address, amount);
-}
-*/
 export default awaitContract;
 
 /*const content = `parameter
