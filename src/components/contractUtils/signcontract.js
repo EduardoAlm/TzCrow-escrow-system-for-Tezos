@@ -1,5 +1,6 @@
 const eztz = window.eztz;
 import * as Cookies from "js-cookie";
+
 function contractsign() {
   const address = Cookies.get("contractAddress");
   console.log("signing...");

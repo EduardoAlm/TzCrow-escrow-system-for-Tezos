@@ -29,7 +29,10 @@
           <td>
             <button
               class="w3-btn w3-round-xlarge w3-blue w3-hover-light-gray w3-text-white"
-              @click="modal(trans._id)"
+              @click="
+                modal(trans._id);
+                scid(trans._id);
+              "
             >
               See details
             </button>
@@ -109,7 +112,7 @@
             <div class="w3-cell w3-half">
               <button
                 class="w3-btn w3-round-xlarge w3-blue w3-hover-light-gray w3-text-white"
-                @click="this.sign"
+                @click="sign"
               >
                 Sign Transaction
               </button>
@@ -117,15 +120,30 @@
             <div class="w3-cell w3-half">
               <button
                 class="w3-btn w3-round-xlarge w3-blue w3-hover-light-gray w3-text-white"
-                @click="this.execute"
+                @click="execute"
               >
                 Execute Transaction
               </button>
             </div>
           </div>
         </div>
-
-        <p>&nbsp;</p>
+        <p></p>
+        <div
+          class="alert alert-success"
+          style="margin-left:20px;margin-right:20px"
+          v-if="requestErr == false"
+        >
+          <strong>Success!</strong>
+          You have successfully submitted the request for transaction.
+        </div>
+        <div
+          class="alert alert-warning"
+          style="margin-left:20px;margin-right:20px"
+          v-if="requestErr == true"
+        >
+          <strong>Error!</strong>
+          Something went wrong with the transaction request.
+        </div>
       </modal>
     </div>
   </div>
@@ -136,7 +154,7 @@ import PouchDB from "pouchdb";
 import findPlugin from "pouchdb-find";
 import * as Cookies from "js-cookie";
 import contractsign from "../contractUtils/signcontract.js";
-
+import transactionLogic from "../contractUtils/transactionLogic.js";
 function find() {
   PouchDB.plugin(findPlugin);
   var db = new PouchDB("http://localhost:5984/contract_info");
@@ -172,7 +190,9 @@ export default {
   data: function() {
     return {
       transArray: null,
-      id: ""
+      id: "",
+      cid: "",
+      requestErr: null
     };
   },
   methods: {
@@ -181,6 +201,9 @@ export default {
       this.$modal.show("detailsEscrowModal", { text: event });
     },
     find: function() {},
+    scid(cid) {
+      this.cid = cid;
+    },
     sign() {
       var len = this.transArray.length;
       var i = 0;
@@ -189,8 +212,70 @@ export default {
         contractsign(this.transArray[i].escrowaddress);
       }
     },
+
     execute() {
-      console.log(this.selected);
+      const cid = this.cid;
+      PouchDB.plugin(findPlugin);
+      var db = new PouchDB("http://localhost:5984/contract_info");
+
+      var res = "";
+      db.createIndex({
+        index: { fields: ["_id"] }
+      })
+        .then(function() {
+          return db.find({
+            selector: {
+              _id: { $eq: cid }
+            },
+            sort: ["_id"]
+          });
+        })
+        .then(function(result) {
+          for (var i = 0; i < result.docs.length; i++) {
+            if (
+              result.docs[i].buyerResponse == "Refund" &&
+              result.docs[i].sellerResponse == "Refund"
+            ) {
+              res = transactionLogic(
+                "Refund",
+                result.docs[i].productprice,
+                result.docs[i].colateral,
+                result.docs[i].fee
+              );
+              console.log(res);
+              if (res === "Success") {
+                Cookies.set("requestErr", false);
+              } else {
+                Cookies.set("requestErr", true);
+              }
+            } else if (
+              result.docs[i].buyerResponse == "Release" &&
+              result.docs[i].sellerResponse == "Release"
+            ) {
+              res = transactionLogic(
+                "Release",
+                result.docs[i].productprice,
+                result.docs[i].colateral,
+                result.docs[i].fee
+              );
+              console.log(res);
+              if (res === "Success") {
+                Cookies.set("requestErr", false);
+              } else {
+                Cookies.set("requestErr", true);
+              }
+            } else {
+              Cookies.set("requestErr", true);
+            }
+          }
+        });
+      if (Cookies.get("requestErr") === "false") {
+        this.requestErr = false;
+      } else {
+        this.requestErr = true;
+      }
+      console.log(this.requestErr);
+      Cookies.remove("requestErr");
     },
     beforeOpen(event) {
       console.log(event.params.text);

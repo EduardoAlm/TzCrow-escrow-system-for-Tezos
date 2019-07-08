@@ -5,12 +5,14 @@ eztz.node.setProvider("http://127.0.0.1:18731");
 function awaitContract() {
   eztz.contract.watch("KT1WksTxhcs1mvXEn8d3u5Q94V8uQ66Zz8G8", 2, function(s) {
     console.log("New storage", s);
-    return s;
   });
 
   eztz.rpc
     .getBalance("KT1WksTxhcs1mvXEn8d3u5Q94V8uQ66Zz8G8")
-    .then(console.log)
+    .then(res => {
+      console.log(res);
+      return res;
+    })
     .catch(console.log);
 }
 

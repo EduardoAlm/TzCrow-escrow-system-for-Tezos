@@ -282,8 +282,6 @@ export default {
           });
         })
         .then(function(result) {
-          console.log(result);
-          console.log(result.docs);
           for (var i = 0; i < result.docs.length; i++) {
             var doc = {
               _id: result.docs[i]._id,
