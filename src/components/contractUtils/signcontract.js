@@ -1,6 +1,7 @@
 const eztz = window.eztz;
-
+import * as Cookies from "js-cookie";
 function contractsign() {
+  const address = Cookies.get("contractAddress");
   console.log("signing...");
   const keysext = eztz.crypto.extractKeys(
     "edsk4QLrcijEffxV31gGdN2HU7UpyJjA8drFoNcmnB28n89YjPNRFm"
@@ -11,7 +12,7 @@ function contractsign() {
 
   eztz.contract
     .send(
-      "KT1Mca6X9LdENFo96Sq7RT4BFJrEU5cHpMot",
+      address,
       "tz1ddb9NMYHZi5UzPdzTZMYQQZoMub195zgv",
       keysext,
       5,

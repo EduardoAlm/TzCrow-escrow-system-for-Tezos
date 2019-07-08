@@ -104,10 +104,9 @@
       >
         <strong>Success!</strong>
         You have successfully submitted the transaction data.
-        <strong
-          >To create a new one you have to go to the buyer home page
-          first.</strong
-        >
+        <strong>
+          To create a new one you have to go to the buyer home page first.
+        </strong>
       </div>
     </div>
   </div>
@@ -139,8 +138,8 @@ export default {
   },
   methods: {
     getInfo() {
-      const contractAdd = Cookies.get("contractAddress");
-
+      Cookies.set("contractAddress", "KT1WksTxhcs1mvXEn8d3u5Q94V8uQ66Zz8G8");
+      const contractAdd = "KT1WksTxhcs1mvXEn8d3u5Q94V8uQ66Zz8G8";
       var resawait = awaitContract();
       console.log(resawait);
       let data = {

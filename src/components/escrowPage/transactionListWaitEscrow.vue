@@ -117,6 +117,7 @@
             <div class="w3-cell w3-half">
               <button
                 class="w3-btn w3-round-xlarge w3-blue w3-hover-light-gray w3-text-white"
+                @click="this.execute"
               >
                 Execute Transaction
               </button>
@@ -187,6 +188,9 @@ export default {
         console.log(this.transArray[i].escrowaddress);
         contractsign(this.transArray[i].escrowaddress);
       }
+    },
+    execute() {
+      console.log(this.selected);
     },
     beforeOpen(event) {
       console.log(event.params.text);

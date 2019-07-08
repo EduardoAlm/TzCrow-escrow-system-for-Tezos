@@ -1,18 +1,15 @@
-import * as Cookies from "js-cookie";
 const eztz = window.eztz;
 
 eztz.node.setProvider("http://127.0.0.1:18731");
 
 function awaitContract() {
-  Cookies.set("contractAddress", "KT1Mca6X9LdENFo96Sq7RT4BFJrEU5cHpMot");
-
-  eztz.contract.watch("KT1Mca6X9LdENFo96Sq7RT4BFJrEU5cHpMot", 2, function(s) {
+  eztz.contract.watch("KT1WksTxhcs1mvXEn8d3u5Q94V8uQ66Zz8G8", 2, function(s) {
     console.log("New storage", s);
     return s;
   });
 
   eztz.rpc
-    .getBalance("KT1Mca6X9LdENFo96Sq7RT4BFJrEU5cHpMot")
+    .getBalance("KT1WksTxhcs1mvXEn8d3u5Q94V8uQ66Zz8G8")
     .then(console.log)
     .catch(console.log);
 }

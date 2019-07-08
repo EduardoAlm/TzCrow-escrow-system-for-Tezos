@@ -43,7 +43,7 @@ export default {
         },
         {
           id: 3,
-          text: "Fees/Benefits/Withdraw",
+          text: "Fees",
           page: "/fee"
         }
       ]
