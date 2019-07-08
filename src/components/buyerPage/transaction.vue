@@ -116,7 +116,7 @@
 import * as Cookies from "js-cookie";
 import PouchDB from "pouchdb";
 import findPlugin from "pouchdb-find";
-import CryptoJs from "crypto-js";
+import awaitContract from "../contractUtils/awaitcontract.js";
 
 export default {
   name: "transaction",
@@ -138,6 +138,10 @@ export default {
   },
   methods: {
     getInfo() {
+      Cookies.set("contractAddress", "KT1WksTxhcs1mvXEn8d3u5Q94V8uQ66Zz8G8");
+      const contractAdd = "KT1WksTxhcs1mvXEn8d3u5Q94V8uQ66Zz8G8";
+      var resawait = awaitContract();
+      console.log(resawait);
       let data = {
         sAddress: this.sAdd,
         cName: this.contractName,
@@ -155,7 +159,7 @@ export default {
       console.log(data.tz);
       console.log(data.col);
       var bArray = JSON.parse(Cookies.get("bArray"));
-
+      let scd = {};
       for (var obj in bArray) {
         if (
           this.contractName === bArray[obj].contractname &&
@@ -164,13 +168,36 @@ export default {
         ) {
           PouchDB.plugin(findPlugin);
           var db = new PouchDB("http://localhost:5984/sc_cid");
+          var db1 = new PouchDB("http://localhost:5984/contract_info");
           var dt = new Date();
           this.id = bArray[obj].id;
           db.get(bArray[obj].id)
-            .then(function(doc) {
+            .then(function() {
+              scd = {
+                _id: bArray[obj].id,
+                contractname: bArray[obj].contractname,
+                selleraddress: bArray[obj].selleraddress,
+                buyeraddress: Cookies.get("address"),
+                escrowaddress: "tz1KqTpEZ7Yob7QbPE4Hy4Wo8fHG8LhKxZSx",
+                productprice: bArray[obj].productprice,
+                createdon: bArray[obj].createdon,
+                colateral: bArray[obj].colateral,
+                fee: 0.05,
+                productdesc: bArray[obj].productdesc,
+                buyerPayTime: bArray[obj].buyerPayTime,
+                sellerPayTime: bArray[obj].sellerPayTime,
+                updatedate: dt.toUTCString(),
+                hxsc: contractAdd,
+                dapppkh: "tz1ddb9NMYHZi5UzPdzTZMYQQZoMub195zgv",
+                contractstatus: "Accepted!",
+                buyerResponse: "",
+                sellerResponse: ""
+              };
+              console.log(scd);
+              db1.put(scd);
               return db.put({
                 _id: bArray[obj].id,
-                _rev: doc._rev,
+                _rev: bArray[obj].rev,
                 selleraddress: bArray[obj].selleraddress,
                 createdon: bArray[obj].createdon,
                 productprice: bArray[obj].productprice,
@@ -182,7 +209,7 @@ export default {
                 sellerPayTime: bArray[obj].sellerPayTime,
                 updatedate: dt.toUTCString(),
                 buyeraddress: Cookies.get("address"),
-                hxsc: "",
+                hxsc: contractAdd,
                 contractstatus: "Accepted!"
               });
             })
@@ -200,27 +227,6 @@ export default {
       this.contractName = "";
       this.tzAmount = "0";
       this.checkNull = true;
-      this.generateContract();
-    },
-    generateContract: function() {
-      //Cypher
-      var ciphertext = CryptoJs.AES.encrypt(
-        this.id +
-          this.sAdd +
-          Cookies.get("address") +
-          this.tzAmount +
-          this.colateral +
-          "0.05",
-        this.id
-      ).toString();
-
-      console.log(ciphertext);
-
-      // Decypher
-      var bytes = CryptoJs.AES.decrypt(ciphertext, this.id);
-      var originalText = bytes.toString(CryptoJs.enc.Utf8);
-
-      console.log(originalText);
     },
     getBal() {
       const eztz = window.eztz;

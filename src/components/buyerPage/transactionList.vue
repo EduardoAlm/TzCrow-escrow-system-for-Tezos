@@ -13,7 +13,7 @@
         <tr
           v-for="trans in transArray"
           v-bind:key="trans._id"
-          class="w3-hover-orange"
+          class="w3-hover-light-gray"
         >
           <td>{{ trans.selleraddress }}</td>
           <td>{{ trans.contractname }}</td>
@@ -154,14 +154,14 @@ export default {
               contractstatus: result.docs[i].contractstatus
             };
             bArray.push(data);
-
-            console.log(bArray);
+            Cookies.set("bArray", bArray);
+            console.log(Cookies.get("bArray"));
           }
-          Cookies.set("bArray", bArray);
         })
         .catch(function(err) {
           console.log(err);
         });
+
       return arr;
     },
     beforeOpen(event) {

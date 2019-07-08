@@ -13,7 +13,7 @@
         <tr
           v-for="trans in transArray"
           v-bind:key="trans._id"
-          class="w3-hover-orange"
+          class="w3-hover-light-gray"
         >
           <td>{{ trans.selleraddress }}</td>
           <td>{{ trans.contractname }}</td>
@@ -23,7 +23,10 @@
           <td>
             <button
               class="w3-btn w3-round-xlarge w3-blue w3-hover-light-gray w3-text-white"
-              @click="modal(trans._id)"
+              @click="
+                modal(trans._id);
+                contid(trans._id);
+              "
             >
               See details
             </button>
@@ -87,6 +90,9 @@
                 <h5>Product Description:</h5>
                 <p>{{ trans.productdesc }}</p>
                 <hr style="border: 0.7px solid gray;" />
+                <h5>Smart Contract Address:</h5>
+                <p>{{ trans.hxsc }}</p>
+                <hr style="border: 0.7px solid gray;" />
                 <h5>Date of Update:</h5>
                 <p>{{ trans.updatedate }}</p>
               </div>
@@ -103,6 +109,7 @@
             <div class="w3-cell w3-half">
               <button
                 class="w3-btn w3-round-xlarge w3-blue w3-hover-light-gray w3-text-white"
+                @click="refund"
               >
                 Refund Request
               </button>
@@ -110,6 +117,7 @@
             <div class="w3-cell w3-half">
               <button
                 class="w3-btn w3-round-xlarge w3-blue w3-hover-light-gray w3-text-white"
+                @click="release"
               >
                 Release Funds
               </button>
@@ -125,13 +133,13 @@
 <script>
 import PouchDB from "pouchdb";
 import findPlugin from "pouchdb-find";
-import * as Cookies from "js-cookie";
 export default {
   name: "transactionListAccepted",
   data: function() {
     return {
       transArray: null,
-      id: ""
+      id: "",
+      cid: ""
     };
   },
   methods: {
@@ -142,7 +150,7 @@ export default {
     find: function() {
       PouchDB.plugin(findPlugin);
       var db = new PouchDB("http://crow:tezoscrow@/127.0.0.1:5984/sc_cid");
-      var bArray = [];
+
       var arr = [];
       db.createIndex({
         index: { fields: ["selleraddress"] }
@@ -160,27 +168,7 @@ export default {
           var i = 0;
           for (i = 0; i < result.docs.length; i++) {
             arr.push(result.docs[i]);
-            let data = {
-              id: result.docs[i]._id,
-              rev: result.docs[i]._rev,
-              selleraddress: result.docs[i].selleraddress,
-              createdon: result.docs[i].createdon,
-              productprice: result.docs[i].productprice,
-              colateral: result.docs[i].colateral,
-              fee: 1.5,
-              productdesc: result.docs[i].productdesc,
-              contractname: result.docs[i].contractname,
-              buyerPayTime: result.docs[i].buyerPayTime,
-              updatedate: result.docs[i].updatedate,
-              buyeraddress: result.docs[i].buyeraddress,
-              hxsc: result.docs[i].hxsc,
-              contractstatus: result.docs[i].contractstatus
-            };
-            bArray.push(data);
-
-            console.log(bArray);
           }
-          Cookies.set("bArray", bArray);
         })
         .catch(function(err) {
           console.log(err);
@@ -193,6 +181,120 @@ export default {
     },
     beforeClose(event) {
       console.log(event);
+    },
+    contid(id) {
+      this.cid = id;
+      console.log(this.cid);
+    },
+    refund() {
+      PouchDB.plugin(findPlugin);
+      console.log(this.cid);
+      const c_id = this.cid;
+      var db = new PouchDB(
+        "http://crow:tezoscrow@/127.0.0.1:5984/contract_info"
+      );
+      db.createIndex({
+        index: { fields: ["_id"] }
+      })
+        .then(function() {
+          return db.find({
+            selector: {
+              _id: { $eq: c_id }
+            },
+            sort: ["_id"]
+          });
+        })
+        .then(function(result) {
+          console.log(result);
+          console.log(result.docs);
+          for (var i = 0; i < result.docs.length; i++) {
+            var doc = {
+              _id: result.docs[i]._id,
+              _rev: result.docs[i]._rev,
+              contractname: result.docs[i].contractname,
+              selleraddress: result.docs[i].selleraddress,
+              buyeraddress: result.docs[i].buyeraddress,
+              escrowaddress: result.docs[i].escrowaddress,
+              productprice: result.docs[i].productprice,
+              createdon: result.docs[i].createdon,
+              colateral: result.docs[i].colateral,
+              fee: result.docs[i].fee,
+              productdesc: result.docs[i].productdesc,
+              buyerPayTime: result.docs[i].buyerPayTime,
+              updatedate: result.docs[i].updatedate,
+              hxsc: result.docs[i].hxsc,
+              dapppkh: result.docs[i].dapppkh,
+              contractstatus: result.docs[i].contractstatus,
+              buyerResponse: "Refund",
+              sellerResponse: result.docs[i].sellerResponse
+            };
+            db.put(doc)
+              .then(res => {
+                console.log(res);
+              })
+              .catch(err => {
+                console.log(err);
+              });
+          }
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
+    },
+    release() {
+      PouchDB.plugin(findPlugin);
+      console.log(this.cid);
+      const c_id = this.cid;
+      var db = new PouchDB(
+        "http://crow:tezoscrow@/127.0.0.1:5984/contract_info"
+      );
+      db.createIndex({
+        index: { fields: ["_id"] }
+      })
+        .then(function() {
+          return db.find({
+            selector: {
+              _id: { $eq: c_id }
+            },
+            sort: ["_id"]
+          });
+        })
+        .then(function(result) {
+          console.log(result);
+          console.log(result.docs);
+          for (var i = 0; i < result.docs.length; i++) {
+            var doc = {
+              _id: result.docs[i]._id,
+              _rev: result.docs[i]._rev,
+              contractname: result.docs[i].contractname,
+              selleraddress: result.docs[i].selleraddress,
+              buyeraddress: result.docs[i].buyeraddress,
+              escrowaddress: result.docs[i].escrowaddress,
+              productprice: result.docs[i].productprice,
+              createdon: result.docs[i].createdon,
+              colateral: result.docs[i].colateral,
+              fee: result.docs[i].fee,
+              productdesc: result.docs[i].productdesc,
+              buyerPayTime: result.docs[i].buyerPayTime,
+              updatedate: result.docs[i].updatedate,
+              hxsc: result.docs[i].hxsc,
+              dapppkh: result.docs[i].dapppkh,
+              contractstatus: result.docs[i].contractstatus,
+              buyerResponse: "Release",
+              sellerResponse: result.docs[i].sellerResponse
+            };
+            db.put(doc)
+              .then(res => {
+                console.log(res);
+              })
+              .catch(err => {
+                console.log(err);
+              });
+          }
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
     }
   },
   mounted() {

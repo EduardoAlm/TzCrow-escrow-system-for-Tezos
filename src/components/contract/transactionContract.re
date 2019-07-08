@@ -11,7 +11,7 @@ type storage= {
 };
 
  let%init storage = {
-    owners: Set([tz1b7tUupMgCNw2cCLpKTkSD1NZzB5TkP2sv : address, tz1ddb9NMYHZi5UzPdzTZMYQQZoMub195zgv : address, tz1SL1KC6TwEuaMtSXLM7P51DFekbzytRX2z :address]),
+    owners: Set([tz1KqTpEZ7Yob7QbPE4Hy4Wo8fHG8LhKxZSx,9f24c79c96aa9b859f4d4b66eff9ff8d772420ac3801f57834c2916aea5709a6]),/*escrow address = bootstrap1 address*/
     last_proposition: None,
     owners_signed: Set
 };
@@ -47,14 +47,6 @@ let delete_proposition = (storage, transactions) => {
         owners_signed: Set
     })
 };
-
-[%%entry let delete_proposition = (parameter: unit, storage) => {
-    if (can_call(storage)){
-        delete_proposition(storage, [])
-    } else {
-        Current.failwith("Only contracts owners can sign transaction proposals")
-    }
-}];
 
 [%%entry let sign_proposition = (parameter: unit, storage) => {
     if(can_call(storage)){

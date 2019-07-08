@@ -4,9 +4,13 @@
       <table class="w3-table w3-bordered w3-centered w3-striped">
         <tr>
           <th>Your Address</th>
-          <th>Contract Name</th>
-          <th>Date of Creation</th>
-          <th>Contract Status</th>
+          <th>Seller Address</th>
+          <th>Buyer Address</th>
+          <th>Contract Name:</th>
+          <th>Buyer Response</th>
+          <th>Seller Response</th>
+          <th>Buyer Pay Time:</th>
+          <th>Seller Pay Time:</th>
           <th>Details</th>
         </tr>
         <tr
@@ -14,10 +18,14 @@
           v-bind:key="trans._id"
           class="w3-hover-light-gray"
         >
+          <td>{{ trans.escrowaddress }}</td>
           <td>{{ trans.selleraddress }}</td>
+          <td>{{ trans.buyeraddress }}</td>
           <td>{{ trans.contractname }}</td>
-          <td>{{ trans.createdon }}</td>
-          <td>{{ trans.contractstatus }}</td>
+          <td>{{ trans.buyerResponse }}</td>
+          <td>{{ trans.sellerResponse }}</td>
+          <td>{{ trans.buyerPayTime }}</td>
+          <td>{{ trans.sellerPayTime }}</td>
           <td>
             <button
               class="w3-btn w3-round-xlarge w3-blue w3-hover-light-gray w3-text-white"
@@ -30,7 +38,7 @@
       </table>
 
       <modal
-        name="detailsSellerModal"
+        name="detailsEscrowModal"
         height="auto"
         :scrollable="true"
         @before-open="beforeOpen"
@@ -47,7 +55,7 @@
               <button
                 class="w3-button w3-white w3-border-white w3-shadow-white w3-hover-white"
                 style="width:40px;height:30px"
-                @click="$modal.hide('detailsSellerModal')"
+                @click="$modal.hide('detailsEscrowModal')"
               >
                 <img
                   src="../../assets/cross.png"
@@ -67,12 +75,6 @@
                 class="component-container"
                 style="border: 0.7px solid gray;"
               >
-                <h5>Your Address:</h5>
-                <p>{{ trans.selleraddress }}</p>
-                <hr style="border: 0.7px solid gray;" />
-                <h5 class>Contract Name:</h5>
-                <p>{{ trans.contractname }}</p>
-                <hr style="border: 0.7px solid gray;" />
                 <h5 class>Date of Creation:</h5>
                 <p>{{ trans.createdon }}</p>
                 <hr style="border: 0.7px solid gray;" />
@@ -85,22 +87,45 @@
                 <h5>Transaction Fee:</h5>
                 <p>{{ trans.fee }}</p>
                 <hr style="border: 0.7px solid gray;" />
-                <h5>Buyer Pay Time:</h5>
-                <p>{{ trans.buyerPayTime }}</p>
-                <hr style="border: 0.7px solid gray;" />
-                <h5>Seller Pay Time:</h5>
-                <p>{{ trans.sellerPayTime }}</p>
-                <hr style="border: 0.7px solid gray;" />
                 <h5>Product Description:</h5>
                 <p>{{ trans.productdesc }}</p>
                 <hr style="border: 0.7px solid gray;" />
                 <h5>Date of Update:</h5>
                 <p>{{ trans.updatedate }}</p>
+                <hr style="border: 0.7px solid gray;" />
+                <h5>Smart Contract Address:</h5>
+                <p>{{ trans.hxsc }}</p>
               </div>
             </div>
           </div>
         </div>
         <p></p>
+        <div
+          class="component-container w3-center"
+          style="margin-left: auto;
+    margin-right: auto;width:400px"
+        >
+          <div class="w3-row">
+            <div class="w3-cell w3-half">
+              <button
+                class="w3-btn w3-round-xlarge w3-blue w3-hover-light-gray w3-text-white"
+                @click="this.sign"
+              >
+                Sign Transaction
+              </button>
+            </div>
+            <div class="w3-cell w3-half">
+              <button
+                class="w3-btn w3-round-xlarge w3-blue w3-hover-light-gray w3-text-white"
+                @click="this.execute"
+              >
+                Execute Transaction
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <p>&nbsp;</p>
       </modal>
     </div>
   </div>
@@ -110,22 +135,22 @@
 import PouchDB from "pouchdb";
 import findPlugin from "pouchdb-find";
 import * as Cookies from "js-cookie";
+import contractsign from "../contractUtils/signcontract.js";
 
 function find() {
   PouchDB.plugin(findPlugin);
-  var db = new PouchDB("http://crow:tezoscrow@/127.0.0.1:5984/sc_cid");
-  var cnameArray = [];
+  var db = new PouchDB("http://localhost:5984/contract_info");
+
   var arr = [];
   db.createIndex({
-    index: { fields: ["selleraddress"] }
+    index: { fields: ["hxsc"] }
   })
     .then(function() {
       return db.find({
         selector: {
-          selleraddress: { $eq: Cookies.get("address") },
-          contractstatus: { $eq: "Waiting..." }
+          hxsc: { $eq: Cookies.get("contractAddress") }
         },
-        sort: ["selleraddress"]
+        sort: ["hxsc"]
       });
     })
     .then(function(result) {
@@ -133,14 +158,6 @@ function find() {
       console.log(result);
       for (i = 0; i < result.docs.length; i++) {
         arr.push(result.docs[i]);
-        cnameArray.push(result.docs[i].contractname);
-        console.log(result.docs[i].contractname);
-        console.log(cnameArray[i]);
-      }
-      if (cnameArray.length == 0) {
-        Cookies.set("arrayCN", []);
-      } else {
-        Cookies.set("arrayCN", cnameArray);
       }
     })
     .catch(function(err) {
@@ -151,7 +168,7 @@ function find() {
 }
 
 export default {
-  name: "TransactionListSeller",
+  name: "TransactionListEscrow",
   data: function() {
     return {
       transArray: null,
@@ -161,9 +178,20 @@ export default {
   methods: {
     modal: function(event) {
       console.log(event);
-      this.$modal.show("detailsSellerModal", { text: event });
+      this.$modal.show("detailsEscrowModal", { text: event });
     },
     find: function() {},
+    sign() {
+      var len = this.transArray.length;
+      var i = 0;
+      for (i = 0; i < len; i++) {
+        console.log(this.transArray[i].escrowaddress);
+        contractsign(this.transArray[i].escrowaddress);
+      }
+    },
+    execute() {
+      console.log(this.selected);
+    },
     beforeOpen(event) {
       console.log(event.params.text);
       this.id = event.params.text;

@@ -1,0 +1,114 @@
+parameter
+  (or :_entries
+     (pair :proposition %_Liq_entry_create_proposition
+        (key_hash %destination)
+        (mutez %amount))
+     (or (unit %_Liq_entry_sign_proposition) (unit %_Liq_entry_execute_proposition)));
+storage
+  (pair :storage
+     (set %owners address)
+     (pair (set %owners_signed address)
+           (option %last_proposition
+              (pair :proposition (key_hash %destination) (mutez %amount)))));
+code { DUP ;
+       DIP { CDR @storage_slash_1 } ;
+       CAR @parameter_slash_2 ;
+       LAMBDA @can_call
+         (pair :storage
+            (set %owners address)
+            (pair (set %owners_signed address)
+                  (option %last_proposition
+                     (pair :proposition (key_hash %destination) (mutez %amount)))))
+         bool
+         { RENAME @storage_slash_3 ; CAR %owners ; SENDER @sender ; MEM } ;
+       DUUP @parameter ;
+       IF_LEFT
+         { RENAME @new_proposition_slash_12 ;
+           DUUUUP @storage ;
+           DUUUP @can_call ;
+           DUUP @storage ;
+           EXEC ;
+           IF { DUP @storage ;
+                CDDR %last_proposition ;
+                IF_NONE
+                  { DUUP @new_proposition ;
+                    SOME ;
+                    PUSH (set address) {} ;
+                    PAIR %owners_signed %last_proposition ;
+                    DUUP @storage ;
+                    CAR %owners ;
+                    PAIR %owners ;
+                    NIL operation ;
+                    PAIR }
+                  { PUSH string
+                         "Transaction proposal is already pending, please delete it before creating a new one" ;
+                    FAILWITH } }
+              { PUSH string "Only contract owners can propose new transactions" ; FAILWITH } ;
+           DIP { DROP ; DROP } }
+         { IF_LEFT
+             { RENAME @__slash_15 ;
+               DUUUUP @storage ;
+               DUUUP @can_call ;
+               DUUP @storage ;
+               EXEC ;
+               IF { DUP @storage ;
+                    CDDR %last_proposition ;
+                    DUUP @storage ;
+                    CDAR %owners_signed ;
+                    SENDER @sender ;
+                    DIP { PUSH bool True } ;
+                    UPDATE ;
+                    PAIR %owners_signed %last_proposition ;
+                    DUUP @storage ;
+                    CAR %owners ;
+                    PAIR %owners ;
+                    NIL operation ;
+                    PAIR }
+                  { PUSH string "Only contract owners can sign transaction proposals" ;
+                    FAILWITH } ;
+               DIP { DROP ; DROP } }
+             { RENAME @__slash_18 ;
+               DUUUUP @storage ;
+               DUUUP @can_call ;
+               DUUP @storage ;
+               EXEC ;
+               IF { DUP @storage ;
+                    CAR %owners ;
+                    SIZE ;
+                    DUUP @storage ;
+                    CDAR %owners_signed ;
+                    SIZE ;
+                    COMPARE ;
+                    EQ ;
+                    IF { DUP @storage ;
+                         CDDR %last_proposition ;
+                         IF_NONE
+                           { PUSH string "There is no proposition to execute" ; FAILWITH }
+                           { DUP @proposition ;
+                             CAR %destination ;
+                             IMPLICIT_ACCOUNT ;
+                             SWAP ;
+                             CDR %amount ;
+                             UNIT ;
+                             TRANSFER_TOKENS @transfer ;
+                             NIL operation ;
+                             SWAP ;
+                             CONS ;
+                             DUUP ;
+                             PAIR ;
+                             NONE (pair :proposition (key_hash %destination) (mutez %amount)) ;
+                             PUSH (set address) {} ;
+                             PAIR %owners_signed %last_proposition ;
+                             DUUP ;
+                             CAR @storage ;
+                             CAR %owners ;
+                             PAIR %owners ;
+                             SWAP ;
+                             CDR @transactions ;
+                             PAIR } }
+                       { PUSH string "More signatures required to execute the proposition" ;
+                         FAILWITH } }
+                  { PUSH string "Only contract owners can sign transaction proposals" ;
+                    FAILWITH } ;
+               DIP { DROP ; DROP } } } ;
+       DIP { DROP ; DROP ; DROP } };
