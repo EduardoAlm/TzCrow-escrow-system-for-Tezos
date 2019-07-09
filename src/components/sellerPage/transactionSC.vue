@@ -125,9 +125,10 @@
     >
       <strong>Success!</strong>
       You have successfully submitted the transaction data.
-      <strong>
-        To create a new one you have to go to the seller home page first.
-      </strong>
+      <strong
+        >To create a new one you have to go to the seller home page
+        first.</strong
+      >
     </div>
     <p>&nbsp;</p>
     <p>&nbsp;</p>
@@ -137,7 +138,7 @@
 <script>
 import PouchDB from "pouchdb";
 import * as Cookies from "js-cookie";
-
+import deatomize from "../contractUtils/deatomize";
 export default {
   name: "transactionSC",
   data: function() {
@@ -258,7 +259,7 @@ export default {
       eztz.rpc
         .getBalance(Cookies.get("address"))
         .then(res => {
-          this.bal = res;
+          this.bal = deatomize(res);
           console.log(res);
         })
         .catch(e => {

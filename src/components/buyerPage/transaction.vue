@@ -104,9 +104,10 @@
       >
         <strong>Success!</strong>
         You have successfully submitted the transaction data.
-        <strong>
-          To create a new one you have to go to the buyer home page first.
-        </strong>
+        <strong
+          >To create a new one you have to go to the buyer home page
+          first.</strong
+        >
       </div>
     </div>
   </div>
@@ -116,8 +117,7 @@
 import * as Cookies from "js-cookie";
 import PouchDB from "pouchdb";
 import findPlugin from "pouchdb-find";
-import awaitContract from "../contractUtils/awaitcontract.js";
-
+import deatomize from "../contractUtils/deatomize";
 export default {
   name: "transaction",
   data: function() {
@@ -138,10 +138,9 @@ export default {
   },
   methods: {
     getInfo() {
-      Cookies.set("contractAddress", "KT1WksTxhcs1mvXEn8d3u5Q94V8uQ66Zz8G8");
-      const contractAdd = "KT1WksTxhcs1mvXEn8d3u5Q94V8uQ66Zz8G8";
-      var resawait = awaitContract();
-      console.log(resawait);
+      Cookies.set("contractAddress", "KT1BGZwEM3FwMC1kvqNJX1nfVSTDxKKKAGLp");
+      const contractAdd = "KT1BGZwEM3FwMC1kvqNJX1nfVSTDxKKKAGLp";
+
       let data = {
         sAddress: this.sAdd,
         cName: this.contractName,
@@ -234,7 +233,7 @@ export default {
       eztz.rpc
         .getBalance(Cookies.get("address"))
         .then(res => {
-          this.bal = res;
+          this.bal = deatomize(res);
           console.log(res);
         })
         .catch(e => {

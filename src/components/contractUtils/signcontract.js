@@ -1,8 +1,6 @@
 const eztz = window.eztz;
-import * as Cookies from "js-cookie";
 
-function contractsign() {
-  const address = Cookies.get("contractAddress");
+function contractsign(contractAdd) {
   console.log("signing...");
   const keysext = eztz.crypto.extractKeys(
     "edsk4QLrcijEffxV31gGdN2HU7UpyJjA8drFoNcmnB28n89YjPNRFm"
@@ -10,14 +8,14 @@ function contractsign() {
   console.log(keysext);
   console.log(keysext.pkh);
   console.log(keysext.sk);
-
+  console.log(contractAdd);
   eztz.contract
     .send(
-      address,
+      contractAdd,
       "tz1ddb9NMYHZi5UzPdzTZMYQQZoMub195zgv",
       keysext,
       5,
-      "(Right (Left Unit))",
+      "(Left Unit)",
       1000000,
       400000,
       10000
@@ -36,9 +34,11 @@ function contractsign() {
         .catch(function() {
           //Reject on time out
         });
+      return "Success";
     })
     .catch(err => {
       console.log(err);
+      return "Error";
     });
 }
 

@@ -1,21 +1,28 @@
+import atomize from "./atomize";
+
 const eztz = window.eztz;
 
-function contractpropose(address, amount) {
-  console.log("signing...");
+function buyertransfer(contractAdd, buyerAddress, buyerAmount) {
   const keysext = eztz.crypto.extractKeys(
     "edsk4QLrcijEffxV31gGdN2HU7UpyJjA8drFoNcmnB28n89YjPNRFm"
   );
   console.log(keysext);
   console.log(keysext.pkh);
   console.log(keysext.sk);
+  console.log(keysext);
+  console.log(keysext.pkh);
+  console.log(keysext.sk);
+  console.log("normal" + buyerAmount);
+  buyerAmount = atomize(buyerAmount);
+  console.log("atomized" + buyerAmount);
 
   eztz.contract
     .send(
-      "KT1Mca6X9LdENFo96Sq7RT4BFJrEU5cHpMot",
+      contractAdd,
       "tz1ddb9NMYHZi5UzPdzTZMYQQZoMub195zgv",
       keysext,
       5,
-      "(Left (" + address + ", " + amount + "))",
+      '(Right (Pair "' + buyerAddress + '" ' + buyerAmount + "))",
       1000000,
       400000,
       10000
@@ -40,4 +47,4 @@ function contractpropose(address, amount) {
     });
 }
 
-export default contractpropose;
+export default buyertransfer;
