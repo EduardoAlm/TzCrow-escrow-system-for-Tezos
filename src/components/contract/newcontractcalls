@@ -8,11 +8,11 @@ liquidity \
 
 tezos-client sign bytes 0x03$(cat ./contract_deployment_op1.bytes) for bootstrap5
 
-edsigtj7Mn1SfLDT59XYgzhRxGwi5pV9DHcTXWAhoJUNbE2FXjCZR6bHN5z76qBmGrc6HeJvaBSXNKSQbdBdnC84nNh4Sc7RXJG
+edsigtuSpngWr7WeUmKkpMzvVwccmHAL5vhdZWh11Q5vXCVS4Kxy3F7PX1EsnP7yAsa74pYRYWkreMZKQ8Q7gDpaQVcjcVPXpCS
 
 liquidity \
    --tezos-node $NODE_URL \
-   --signature edsigtj7Mn1SfLDT59XYgzhRxGwi5pV9DHcTXWAhoJUNbE2FXjCZR6bHN5z76qBmGrc6HeJvaBSXNKSQbdBdnC84nNh4Sc7RXJG \
+   --signature edsigtuSpngWr7WeUmKkpMzvVwccmHAL5vhdZWh11Q5vXCVS4Kxy3F7PX1EsnP7yAsa74pYRYWkreMZKQ8Q7gDpaQVcjcVPXpCS \
 --inject contract_deployment_op1.bytes
 
 Operation injected: oo4gHN6qQjx9w6XPNwdyeBAUFuufN493ZmQdExwkfV3Lx866q33

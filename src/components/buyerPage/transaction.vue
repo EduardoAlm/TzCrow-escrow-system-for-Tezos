@@ -104,10 +104,9 @@
       >
         <strong>Success!</strong>
         You have successfully submitted the transaction data.
-        <strong
-          >To create a new one you have to go to the buyer home page
-          first.</strong
-        >
+        <strong>
+          To create a new one you have to go to the buyer home page first.
+        </strong>
       </div>
     </div>
   </div>
@@ -138,8 +137,8 @@ export default {
   },
   methods: {
     getInfo() {
-      Cookies.set("contractAddress", "KT1BGZwEM3FwMC1kvqNJX1nfVSTDxKKKAGLp");
-      const contractAdd = "KT1BGZwEM3FwMC1kvqNJX1nfVSTDxKKKAGLp";
+      Cookies.set("contractAddress", "KT1Fidymk7Sq4CpLVV1QNXetGUtJceDsvk4D");
+      const contractAdd = "KT1Fidymk7Sq4CpLVV1QNXetGUtJceDsvk4D";
 
       let data = {
         sAddress: this.sAdd,
@@ -183,8 +182,6 @@ export default {
                 colateral: bArray[obj].colateral,
                 fee: 0.05,
                 productdesc: bArray[obj].productdesc,
-                buyerPayTime: bArray[obj].buyerPayTime,
-                sellerPayTime: bArray[obj].sellerPayTime,
                 updatedate: dt.toUTCString(),
                 hxsc: contractAdd,
                 dapppkh: "tz1ddb9NMYHZi5UzPdzTZMYQQZoMub195zgv",
@@ -204,8 +201,6 @@ export default {
                 fee: 0.05,
                 productdesc: bArray[obj].productdesc,
                 contractname: bArray[obj].contractname,
-                buyerPayTime: bArray[obj].buyerPayTime,
-                sellerPayTime: bArray[obj].sellerPayTime,
                 updatedate: dt.toUTCString(),
                 buyeraddress: Cookies.get("address"),
                 hxsc: contractAdd,

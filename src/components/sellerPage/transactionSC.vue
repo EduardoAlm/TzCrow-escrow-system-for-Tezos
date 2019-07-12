@@ -38,14 +38,15 @@
         @keypress="checkNull"
         @mouseover="checkTime"
       />
-      <div style="margin-top:30px"></div>
+      <p>&nbsp;</p>
+      <!-- <div style="margin-top:30px">
       <h4>Buyer Payment Time</h4>
 
       <div
         class="component-container w3-center"
         style="margin-left: auto;
     margin-right: auto;width:110px"
-      >
+      ->
         <div class="w3-row">
           <div class="w3-cell w3-half">
             <input
@@ -68,16 +69,12 @@
           </div>
         </div>
       </div>
-      <div
-        class="alert alert-warning"
-        style="margin-top:20px"
-        v-if="checktimeFlag == true"
-      >
+      <div class="alert alert-warning" style="margin-top:20px" v-if="checktimeFlag == true">
         <strong>Warning!</strong>
         The time limit you set in not allowed.
       </div>
-      <label class="w3-text-light-green" style>Format 'h:m'</label>
-      <h4>Product Description</h4>
+      <label class="w3-text-light-green" style>Format 'h:m'</label></!-->
+      <h4>Transaction Description</h4>
       <input
         :id="productDescription"
         v-model="productDescription"
@@ -125,10 +122,9 @@
     >
       <strong>Success!</strong>
       You have successfully submitted the transaction data.
-      <strong
-        >To create a new one you have to go to the seller home page
-        first.</strong
-      >
+      <strong>
+        To create a new one you have to go to the seller home page first.
+      </strong>
     </div>
     <p>&nbsp;</p>
     <p>&nbsp;</p>
@@ -190,8 +186,6 @@ export default {
         fee: this.fee,
         productdesc: data.productDesc,
         contractname: this.contractName,
-        buyerPayTime: this.buyerPayTime,
-        sellerPayTime: "5 days",
         buyeraddress: "",
         updatedate: "",
         hxsc: "",

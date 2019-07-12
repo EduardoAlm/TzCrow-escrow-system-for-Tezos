@@ -88,13 +88,7 @@
                 <h5>Transaction Fee:</h5>
                 <p>{{ trans.fee }}</p>
                 <hr style="border: 0.7px solid gray;" />
-                <h5>Buyer Pay Time:</h5>
-                <p>{{ trans.buyerPayTime }}</p>
-                <hr style="border: 0.7px solid gray;" />
-                <h5>Seller Pay Time:</h5>
-                <p>{{ trans.sellerPayTime }}</p>
-                <hr style="border: 0.7px solid gray;" />
-                <h5>Product Description:</h5>
+                <h5>Transaction Description:</h5>
                 <p>{{ trans.productdesc }}</p>
                 <hr style="border: 0.7px solid gray;" />
                 <h5>Smart Contract Address:</h5>
@@ -242,7 +236,6 @@ export default {
               colateral: result.docs[i].colateral,
               fee: result.docs[i].fee,
               productdesc: result.docs[i].productdesc,
-              buyerPayTime: result.docs[i].buyerPayTime,
               updatedate: result.docs[i].updatedate,
               hxsc: result.docs[i].hxsc,
               dapppkh: result.docs[i].dapppkh,
@@ -295,7 +288,6 @@ export default {
               colateral: result.docs[i].colateral,
               fee: result.docs[i].fee,
               productdesc: result.docs[i].productdesc,
-              buyerPayTime: result.docs[i].buyerPayTime,
               updatedate: result.docs[i].updatedate,
               hxsc: result.docs[i].hxsc,
               dapppkh: result.docs[i].dapppkh,

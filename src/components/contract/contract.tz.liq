@@ -51,6 +51,6 @@ let%entry
        delete_proposition storage [transfer]
      else
        Current.failwith
-         "More signatures required to execute the proposition")
+         "A signature is required to execute the proposition")
   else
-    Current.failwith "Only contract owners can sign transaction proposals"
+    Current.failwith "Only contract owners can execute transactions"

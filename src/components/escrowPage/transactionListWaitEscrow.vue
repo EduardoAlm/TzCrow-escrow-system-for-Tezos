@@ -9,8 +9,6 @@
           <th>Contract Name:</th>
           <th>Buyer Response</th>
           <th>Seller Response</th>
-          <th>Buyer Pay Time:</th>
-          <th>Seller Pay Time:</th>
           <th>Details</th>
         </tr>
         <tr
@@ -24,8 +22,6 @@
           <td>{{ trans.contractname }}</td>
           <td>{{ trans.buyerResponse }}</td>
           <td>{{ trans.sellerResponse }}</td>
-          <td>{{ trans.buyerPayTime }}</td>
-          <td>{{ trans.sellerPayTime }}</td>
           <td>
             <button
               class="w3-btn w3-round-xlarge w3-blue w3-hover-light-gray w3-text-white"
@@ -90,7 +86,7 @@
                 <h5>Transaction Fee:</h5>
                 <p>{{ trans.fee }}</p>
                 <hr style="border: 0.7px solid gray;" />
-                <h5>Product Description:</h5>
+                <h5>Transaction Description:</h5>
                 <p>{{ trans.productdesc }}</p>
                 <hr style="border: 0.7px solid gray;" />
                 <h5>Date of Update:</h5>
@@ -465,7 +461,6 @@ export default {
               colateral: result.docs[i].colateral,
               fee: result.docs[i].fee,
               productdesc: result.docs[i].productdesc,
-              buyerPayTime: result.docs[i].buyerPayTime,
               updatedate: result.docs[i].updatedate,
               hxsc: result.docs[i].hxsc,
               dapppkh: result.docs[i].dapppkh,
@@ -513,7 +508,6 @@ export default {
                     fee: result.docs[i].fee,
                     productdesc: result.docs[i].productdesc,
                     contractname: result.docs[i].contractname,
-                    buyerPayTime: result.docs[i].buyerPayTime,
                     updatedate: result.docs[i].updatedate,
                     buyeraddress: result.docs[i].buyeraddress,
                     hxsc: result.docs[i].hxsc,
