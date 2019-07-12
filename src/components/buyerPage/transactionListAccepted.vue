@@ -6,7 +6,6 @@
           <th>Seller Address</th>
           <th>Contract Name</th>
           <th>Buyer Address</th>
-          <th>Buyer Pay Time</th>
           <th>Contract Status</th>
           <th>Details</th>
         </tr>
@@ -18,7 +17,6 @@
           <td>{{ trans.selleraddress }}</td>
           <td>{{ trans.contractname }}</td>
           <td>{{ trans.buyeraddress }}</td>
-          <td>{{ trans.buyerPayTime }}</td>
           <td>{{ trans.contractstatus }}</td>
           <td>
             <button
@@ -87,7 +85,7 @@
                 <h5>Transaction Fee:</h5>
                 <p>{{ trans.fee }}</p>
                 <hr style="border: 0.7px solid gray;" />
-                <h5>Product Description:</h5>
+                <h5>Transaction Description:</h5>
                 <p>{{ trans.productdesc }}</p>
                 <hr style="border: 0.7px solid gray;" />
                 <h5>Smart Contract Address:</h5>
@@ -220,7 +218,6 @@ export default {
               colateral: result.docs[i].colateral,
               fee: result.docs[i].fee,
               productdesc: result.docs[i].productdesc,
-              buyerPayTime: result.docs[i].buyerPayTime,
               updatedate: result.docs[i].updatedate,
               hxsc: result.docs[i].hxsc,
               dapppkh: result.docs[i].dapppkh,
@@ -275,7 +272,6 @@ export default {
               colateral: result.docs[i].colateral,
               fee: result.docs[i].fee,
               productdesc: result.docs[i].productdesc,
-              buyerPayTime: result.docs[i].buyerPayTime,
               updatedate: result.docs[i].updatedate,
               hxsc: result.docs[i].hxsc,
               dapppkh: result.docs[i].dapppkh,

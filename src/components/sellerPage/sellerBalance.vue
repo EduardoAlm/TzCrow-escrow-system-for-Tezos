@@ -15,6 +15,7 @@
 
 <script>
 import * as Cookies from "js-cookie";
+import deatomize from "../contractUtils/deatomize";
 
 export default {
   name: "BuyerBalance",
@@ -34,7 +35,7 @@ export default {
       eztz.rpc
         .getBalance(this.address)
         .then(res => {
-          this.bal = res;
+          this.bal = deatomize(res);
           console.log(res);
         })
         .catch(e => {

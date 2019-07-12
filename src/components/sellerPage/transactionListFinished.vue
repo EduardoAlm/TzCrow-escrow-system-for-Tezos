@@ -7,7 +7,6 @@
           <th>Contract Name</th>
           <th>Buyer Address</th>
           <th>Contract Status</th>
-          <th>Buyer Pay Time</th>
           <th>Details</th>
         </tr>
         <tr
@@ -19,11 +18,13 @@
           <td>{{ trans.contractname }}</td>
           <td>{{ trans.buyeraddress }}</td>
           <td>{{ trans.contractstatus }}</td>
-          <td>{{ trans.buyerPayTime }}</td>
           <td>
             <button
               class="w3-btn w3-round-xlarge w3-blue w3-hover-light-gray w3-text-white"
-              @click="modal(trans._id)"
+              @click="
+                modal(trans._id);
+                contid(trans._id);
+              "
             >
               See details
             </button>
@@ -32,7 +33,7 @@
       </table>
 
       <modal
-        name="detailsBuyerModal"
+        name="detailsSellerModalFinished"
         height="auto"
         :scrollable="true"
         @before-open="beforeOpen"
@@ -49,11 +50,11 @@
               <button
                 class="w3-button w3-white w3-border-white w3-shadow-white w3-hover-white"
                 style="width:40px;height:30px"
-                @click="$modal.hide('detailsBuyerModal')"
+                @click="$modal.hide('detailsSellerModalFinished')"
               >
                 <img
                   src="../../assets/cross.png"
-                  style="width:20px;heigth:30px"
+                  style="width:20px;height:20px"
                 />
               </button>
             </div>
@@ -87,13 +88,18 @@
                 <h5>Transaction Description:</h5>
                 <p>{{ trans.productdesc }}</p>
                 <hr style="border: 0.7px solid gray;" />
+                uyer
+                <h5>Smart Contract Address:</h5>
+                <p>{{ trans.hxsc }}</p>
+                <hr style="border: 0.7px solid gray;" />
+                uyer
                 <h5>Date of Update:</h5>
                 <p>{{ trans.updatedate }}</p>
               </div>
             </div>
           </div>
         </div>
-        <p></p>
+        <p>&nbsp;</p>
       </modal>
     </div>
   </div>
@@ -102,24 +108,24 @@
 <script>
 import PouchDB from "pouchdb";
 import findPlugin from "pouchdb-find";
-import * as Cookies from "js-cookie";
 export default {
-  name: "TransactionList",
+  name: "transactionListFinished",
   data: function() {
     return {
       transArray: null,
-      id: ""
+      id: "",
+      cid: ""
     };
   },
   methods: {
     modal: function(event) {
       console.log(event);
-      this.$modal.show("detailsBuyerModal", { text: event });
+      this.$modal.show("detailsSellerModalFinished", { text: event });
     },
     find: function() {
       PouchDB.plugin(findPlugin);
       var db = new PouchDB("http://crow:tezoscrow@/127.0.0.1:5984/sc_cid");
-      var bArray = [];
+
       var arr = [];
       db.createIndex({
         index: { fields: ["selleraddress"] }
@@ -128,7 +134,7 @@ export default {
           return db.find({
             selector: {
               selleraddress: { $gt: null },
-              contractstatus: { $eq: "Waiting..." }
+              contractstatus: { $eq: "Finished!" }
             },
             sort: ["selleraddress"]
           });
@@ -137,30 +143,11 @@ export default {
           var i = 0;
           for (i = 0; i < result.docs.length; i++) {
             arr.push(result.docs[i]);
-            let data = {
-              id: result.docs[i]._id,
-              rev: result.docs[i]._rev,
-              selleraddress: result.docs[i].selleraddress,
-              createdon: result.docs[i].createdon,
-              productprice: result.docs[i].productprice,
-              colateral: result.docs[i].colateral,
-              fee: 1.5,
-              productdesc: result.docs[i].productdesc,
-              contractname: result.docs[i].contractname,
-              updatedate: result.docs[i].updatedate,
-              buyeraddress: result.docs[i].buyeraddress,
-              hxsc: result.docs[i].hxsc,
-              contractstatus: result.docs[i].contractstatus
-            };
-            bArray.push(data);
-            Cookies.set("bArray", bArray);
-            console.log(Cookies.get("bArray"));
           }
         })
         .catch(function(err) {
           console.log(err);
         });
-
       return arr;
     },
     beforeOpen(event) {
@@ -169,6 +156,10 @@ export default {
     },
     beforeClose(event) {
       console.log(event);
+    },
+    contid(id) {
+      this.cid = id;
+      console.log(this.cid);
     }
   },
   mounted() {

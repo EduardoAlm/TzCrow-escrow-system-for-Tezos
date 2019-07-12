@@ -5,8 +5,7 @@ type proposition = {
 type storage =
   {
     owners: address set ;
-    owners_signed: address set ;
-    last_proposition: proposition option }
+    owners_signed: address set }
 let%init
   storage =
   {
@@ -14,35 +13,17 @@ let%init
       ((Set
           ([(tz1ddb9NMYHZi5UzPdzTZMYQQZoMub195zgv : address)]))
          [@explicit_arity ]);
-    last_proposition = None;
+    
     owners_signed = Set
   } 
+
 let can_call storage =
   let sender = Current.sender ()  in Set.mem sender storage.owners 
-let fail_with_wrong_ownership () =
-  Current.failwith "Only contract owners can propose new transactions" 
-let%entry
-  create_proposition (new_proposition : proposition) storage =
-  if can_call storage
-  then
-    match storage.last_proposition with
-    | ((Some (_))[@explicit_arity ]) ->
-        Current.failwith
-          "Transaction proposal is already pending, please delete it before creating a new one"
-    | None  ->
-        ([],
-         {
-           last_proposition = ((Some (new_proposition))[@explicit_arity ]);
-           owners = (storage.owners);
-           owners_signed = Set
-         })
-  else fail_with_wrong_ownership () 
-
+  
 let delete_proposition storage transactions =
   (transactions,
-   { owners = (storage.owners); last_proposition = None; owners_signed = Set
-   })
-
+   { owners = (storage.owners); owners_signed = Set
+   }) 
 let%entry
   sign_proposition (_ : unit) storage =
   if can_call storage
@@ -50,7 +31,7 @@ let%entry
     let sender = Current.sender ()  in
     ([],
      {
-       last_proposition = (storage.last_proposition);
+       
        owners = (storage.owners);
        owners_signed = (Set.add sender storage.owners_signed)
      })
@@ -58,23 +39,18 @@ let%entry
     Current.failwith "Only contract owners can sign transaction proposals"
         
 let%entry
-  execute_proposition (_ : unit) storage =
+  execute_proposition (new_proposition : proposition) storage =
   if can_call storage
   then
     (if (Set.size storage.owners_signed) = (Set.size storage.owners)
      then
-       match storage.last_proposition with
-       | ((Some (proposition))[@explicit_arity ]) ->
-           let transfer =
-             Account.transfer ~dest:(proposition.destination)
-               ~amount:(proposition.amount)
-           in
-           delete_proposition storage [transfer]
-       | None  -> Current.failwith "There is no proposition to execute"
+       let transfer =
+         Account.transfer ~dest:(new_proposition.destination)
+           ~amount:(new_proposition.amount)
+       in
+       delete_proposition storage [transfer]
      else
        Current.failwith
-         "More signatures required to execute the proposition")
+         "A signature is required to execute the proposition")
   else
-    Current.failwith "Only contract owners can sign transaction proposals"
-        
-
+    Current.failwith "Only contract owners can execute transactions"

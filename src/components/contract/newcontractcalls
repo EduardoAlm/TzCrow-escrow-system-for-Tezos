@@ -1,0 +1,20 @@
+liquidity \
+        --tezos-node $NODE_URL \
+        --amount 369tz \
+        --fee 0.05tz \
+        --source tz1ddb9NMYHZi5UzPdzTZMYQQZoMub195zgv \
+        contract_new.tz.liq \
+--forge-deploy > contract_deployment_op1.bytes
+
+tezos-client sign bytes 0x03$(cat ./contract_deployment_op1.bytes) for bootstrap5
+
+edsigtuSpngWr7WeUmKkpMzvVwccmHAL5vhdZWh11Q5vXCVS4Kxy3F7PX1EsnP7yAsa74pYRYWkreMZKQ8Q7gDpaQVcjcVPXpCS
+
+liquidity \
+   --tezos-node $NODE_URL \
+   --signature edsigtuSpngWr7WeUmKkpMzvVwccmHAL5vhdZWh11Q5vXCVS4Kxy3F7PX1EsnP7yAsa74pYRYWkreMZKQ8Q7gDpaQVcjcVPXpCS \
+--inject contract_deployment_op1.bytes
+
+Operation injected: oo4gHN6qQjx9w6XPNwdyeBAUFuufN493ZmQdExwkfV3Lx866q33
+
+tezos-client bake for bootstrap1

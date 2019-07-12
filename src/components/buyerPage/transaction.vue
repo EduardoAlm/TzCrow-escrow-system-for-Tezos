@@ -116,8 +116,7 @@
 import * as Cookies from "js-cookie";
 import PouchDB from "pouchdb";
 import findPlugin from "pouchdb-find";
-import awaitContract from "../contractUtils/awaitcontract.js";
-
+import deatomize from "../contractUtils/deatomize";
 export default {
   name: "transaction",
   data: function() {
@@ -138,10 +137,9 @@ export default {
   },
   methods: {
     getInfo() {
-      Cookies.set("contractAddress", "KT1WksTxhcs1mvXEn8d3u5Q94V8uQ66Zz8G8");
-      const contractAdd = "KT1WksTxhcs1mvXEn8d3u5Q94V8uQ66Zz8G8";
-      var resawait = awaitContract();
-      console.log(resawait);
+      Cookies.set("contractAddress", "KT1Fidymk7Sq4CpLVV1QNXetGUtJceDsvk4D");
+      const contractAdd = "KT1Fidymk7Sq4CpLVV1QNXetGUtJceDsvk4D";
+
       let data = {
         sAddress: this.sAdd,
         cName: this.contractName,
@@ -184,8 +182,6 @@ export default {
                 colateral: bArray[obj].colateral,
                 fee: 0.05,
                 productdesc: bArray[obj].productdesc,
-                buyerPayTime: bArray[obj].buyerPayTime,
-                sellerPayTime: bArray[obj].sellerPayTime,
                 updatedate: dt.toUTCString(),
                 hxsc: contractAdd,
                 dapppkh: "tz1ddb9NMYHZi5UzPdzTZMYQQZoMub195zgv",
@@ -205,8 +201,6 @@ export default {
                 fee: 0.05,
                 productdesc: bArray[obj].productdesc,
                 contractname: bArray[obj].contractname,
-                buyerPayTime: bArray[obj].buyerPayTime,
-                sellerPayTime: bArray[obj].sellerPayTime,
                 updatedate: dt.toUTCString(),
                 buyeraddress: Cookies.get("address"),
                 hxsc: contractAdd,
@@ -234,7 +228,7 @@ export default {
       eztz.rpc
         .getBalance(Cookies.get("address"))
         .then(res => {
-          this.bal = res;
+          this.bal = deatomize(res);
           console.log(res);
         })
         .catch(e => {

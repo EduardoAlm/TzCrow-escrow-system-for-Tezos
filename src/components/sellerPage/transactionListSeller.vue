@@ -85,13 +85,7 @@
                 <h5>Transaction Fee:</h5>
                 <p>{{ trans.fee }}</p>
                 <hr style="border: 0.7px solid gray;" />
-                <h5>Buyer Pay Time:</h5>
-                <p>{{ trans.buyerPayTime }}</p>
-                <hr style="border: 0.7px solid gray;" />
-                <h5>Seller Pay Time:</h5>
-                <p>{{ trans.sellerPayTime }}</p>
-                <hr style="border: 0.7px solid gray;" />
-                <h5>Product Description:</h5>
+                <h5>Transaction Description:</h5>
                 <p>{{ trans.productdesc }}</p>
                 <hr style="border: 0.7px solid gray;" />
                 <h5>Date of Update:</h5>

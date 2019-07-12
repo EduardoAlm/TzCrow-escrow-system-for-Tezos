@@ -18,6 +18,8 @@
         <TransactionListSeller></TransactionListSeller>
         <p>&nbsp;</p>
         <TransactionListSellerAccepted></TransactionListSellerAccepted>
+        <p>&nbsp;</p>
+        <transactionListFinished></transactionListFinished>
       </div>
     </div>
     <p>&nbsp;</p>
@@ -39,6 +41,7 @@ import SellerBalance from "./sellerPage/sellerBalance.vue";
 import TransactionCreate from "./sellerPage/transactionCreate.vue";
 import TransactionListSeller from "./sellerPage/transactionListSeller.vue";
 import TransactionListSellerAccepted from "./sellerPage/transactionListSellerAccepted.vue";
+import transactionListFinished from "./buyerPage/transactionListFinished.vue";
 
 export default {
   name: "Seller",
@@ -50,7 +53,8 @@ export default {
     TransactionCreate: TransactionCreate,
     SellerAddress: SellerAddress,
     TransactionListSeller: TransactionListSeller,
-    TransactionListSellerAccepted: TransactionListSellerAccepted
+    TransactionListSellerAccepted: TransactionListSellerAccepted,
+    transactionListFinished: transactionListFinished
   }
 };
 </script>
