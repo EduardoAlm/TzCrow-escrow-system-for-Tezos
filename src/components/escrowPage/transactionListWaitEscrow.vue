@@ -449,6 +449,12 @@ export default {
           console.log(result);
           console.log(result.docs);
           for (var i = 0; i < result.docs.length; i++) {
+            Cookies.set("selleraddress", result.docs[i].selleraddress);
+            Cookies.set("buyeraddress", result.docs[i].buyeraddress);
+            Cookies.set("contractstatus", result.docs[i].contractstatus);
+            Cookies.set("hxsc", result.docs[i].hxsc);
+            Cookies.set("contractname", result.docs[i].contractname);
+
             var doc = {
               _id: result.docs[i]._id,
               _rev: result.docs[i]._rev,
@@ -475,58 +481,57 @@ export default {
               .catch(err => {
                 console.log(err);
               });
-            var db1 = new PouchDB(
-              "http://crow:tezoscrow@/127.0.0.1:5984/sc_cid"
-            );
+          }
+        });
 
+      var db1 = new PouchDB("http://crow:tezoscrow@/127.0.0.1:5984/sc_cid");
+
+      db1
+        .createIndex({
+          index: { fields: ["selleraddress"] }
+        })
+        .then(function() {
+          return db.find({
+            selector: {
+              selleraddress: { $eq: Cookies.get("selleraddress") },
+              contractstatus: { $eq: Cookies.get("contractstatus") },
+              buyeraddress: { $eq: Cookies.get("buyeraddress") },
+              hxsc: { $eq: Cookies.get("hxsc") },
+              contractname: { $eq: Cookies.get("contractname") }
+            },
+            sort: ["selleraddress"]
+          });
+        })
+        .then(function(result) {
+          var i = 0;
+          for (i = 0; i < result.docs.length; i++) {
+            var doc = {
+              _id: result.docs[i]._id,
+              _rev: result.docs[i]._rev,
+              selleraddress: result.docs[i].selleraddress,
+              createdon: result.docs[i].createdon,
+              productprice: result.docs[i].productprice,
+              colateral: result.docs[i].colateral,
+              fee: result.docs[i].fee,
+              productdesc: result.docs[i].productdesc,
+              contractname: result.docs[i].contractname,
+              updatedate: result.docs[i].updatedate,
+              buyeraddress: result.docs[i].buyeraddress,
+              hxsc: result.docs[i].hxsc,
+              contractstatus: "Finished!"
+            };
             db1
-              .createIndex({
-                index: { fields: ["selleraddress"] }
+              .put(doc)
+              .then(res => {
+                console.log(res);
               })
-              .then(function() {
-                return db.find({
-                  selector: {
-                    selleraddress: { $eq: result.docs[i].selleraddress },
-                    contractstatus: { $eq: "Accepted!" },
-                    buyeraddress: { $eq: result.docs[i].buyeraddress },
-                    hxsc: { $eq: result.docs[i].hxsc },
-                    contractname: { $eq: result.docs[i].hxsc }
-                  },
-                  sort: ["selleraddress"]
-                });
-              })
-              .then(function(result) {
-                var i = 0;
-                for (i = 0; i < result.docs.length; i++) {
-                  doc = {
-                    _id: result.docs[i]._id,
-                    _rev: result.docs[i]._rev,
-                    selleraddress: result.docs[i].selleraddress,
-                    createdon: result.docs[i].createdon,
-                    productprice: result.docs[i].productprice,
-                    colateral: result.docs[i].colateral,
-                    fee: result.docs[i].fee,
-                    productdesc: result.docs[i].productdesc,
-                    contractname: result.docs[i].contractname,
-                    updatedate: result.docs[i].updatedate,
-                    buyeraddress: result.docs[i].buyeraddress,
-                    hxsc: result.docs[i].hxsc,
-                    contractstatus: "Finished!"
-                  };
-                  db1
-                    .put(doc)
-                    .then(res => {
-                      console.log(res);
-                    })
-                    .catch(err => {
-                      console.log(err);
-                    });
-                }
-              })
-              .catch(function(err) {
+              .catch(err => {
                 console.log(err);
               });
           }
+        })
+        .catch(function(err) {
+          console.log(err);
         });
     },
     sellerSign() {
