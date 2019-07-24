@@ -1,6 +1,6 @@
 /* eslint-disable */
 <template>
-  <div class="w3-center w3-container">
+  <div class="w3-center w3-container w3-border">
     <nav class="w3-section w3-bar">
       <router-link
         class="w3-btn w3-wide"
@@ -22,7 +22,7 @@
 <script>
 export default {
   name: "Nav",
-  data() {
+  data: function() {
     return {
       links: [
         {
@@ -45,16 +45,6 @@ export default {
           id: 3,
           text: "Fees",
           page: "/fee"
-        },
-        {
-          id: 4,
-          text: "Benefits",
-          page: "/benefit"
-        },
-        {
-          id: 5,
-          text: "Withdraw",
-          page: "/with"
         }
       ]
     };

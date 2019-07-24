@@ -2,7 +2,16 @@
   <div id="VueInputUi" class="vue-input-ui">
     <div class="container">
       <div class="component-container">
+<<<<<<< HEAD
         <VueInputUi label="Insert your address" hint="is required" required loader/>
+=======
+        <VueInputUi
+          label="Insert your address"
+          hint="is required"
+          required
+          loader
+        />
+>>>>>>> d5b1019b4740220d4ea0c0400cc0de1ae3259902
       </div>
     </div>
   </div>
@@ -39,6 +48,10 @@ export default {
   width: 80%;
   margin: 0 auto;
   text-align: center;
+<<<<<<< HEAD
+=======
+
+>>>>>>> d5b1019b4740220d4ea0c0400cc0de1ae3259902
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -112,4 +125,8 @@ export default {
     }
   }
 }
+<<<<<<< HEAD
 </style>
+=======
+</style>
+>>>>>>> d5b1019b4740220d4ea0c0400cc0de1ae3259902

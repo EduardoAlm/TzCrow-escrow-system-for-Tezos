@@ -29,7 +29,11 @@
       @focus="onFocus"
       @blur="onBlur"
       @click="$emit('click')"
+<<<<<<< HEAD
     >
+=======
+    />
+>>>>>>> d5b1019b4740220d4ea0c0400cc0de1ae3259902
     <textarea
       v-else
       :id="id"
@@ -51,13 +55,41 @@
       :style="[colorStyle]"
       class="field-label"
       @click="focusInput"
+<<<<<<< HEAD
     >{{ hintValue || labelValue }}</label>
     <div v-if="loader" class="loader" :class="{ textarea }"/>
     <button v-bind="$attrs" class="btn" style="margin-top: 20px;" @click="isConnected">Connect</button>
+=======
+      >{{ hintValue || labelValue }}</label
+    >
+    <div v-if="loader" class="loader" :class="{ textarea }" />
+    <button
+      v-bind="$attrs"
+      class="btn w3-hover-opacity"
+      style="margin-top: 20px; margin-right: 5px"
+      @click="isConnected"
+    >
+      Connect
+    </button>
+    <button
+      v-bind="$attrs"
+      class="btn w3-hover-opacity"
+      style="margin-top: 20px; margin-left: 5px; background-color: #f44336"
+      @click="disconnect"
+    >
+      Disconnect
+    </button>
+>>>>>>> d5b1019b4740220d4ea0c0400cc0de1ae3259902
   </div>
 </template>
 
 <script>
+<<<<<<< HEAD
+=======
+import { store } from "../store.js";
+import * as Cookies from "js-cookie";
+
+>>>>>>> d5b1019b4740220d4ea0c0400cc0de1ae3259902
 export default {
   name: "VueInputUi",
   props: {
@@ -82,7 +114,12 @@ export default {
     return {
       isFocus: false,
       address: "",
+<<<<<<< HEAD
       status: false
+=======
+      status: false,
+      keys: ""
+>>>>>>> d5b1019b4740220d4ea0c0400cc0de1ae3259902
     };
   },
   computed: {
@@ -115,6 +152,15 @@ export default {
         hint += ` *`;
       }
       return hint;
+<<<<<<< HEAD
+=======
+    },
+    st() {
+      return store.state.status;
+    },
+    ad() {
+      return store.state.address;
+>>>>>>> d5b1019b4740220d4ea0c0400cc0de1ae3259902
     }
   },
   methods: {
@@ -131,6 +177,7 @@ export default {
     },
     isConnected: function() {
       let data = {
+<<<<<<< HEAD
         address: this.address,
         status: this.status
       };
@@ -142,14 +189,46 @@ export default {
       if (check == true) {
         eztz.rpc
           .getBalance(data.address)
+=======
+        addrss: this.address,
+        stats: this.status
+      };
+      const eztz = window.eztz;
+      eztz.node.setProvider("http://localhost:18731");
+      console.log(data.addrss);
+      let check = eztz.crypto.checkAddress(data.addrss);
+
+      console.log(check);
+      if (check == true) {
+        eztz.rpc
+          .getBalance(data.addrss)
+>>>>>>> d5b1019b4740220d4ea0c0400cc0de1ae3259902
           .then(function(res) {
             console.log(res);
           })
           .catch(function(e) {
             console.log(e);
           });
+<<<<<<< HEAD
         data.status = check;
       }
+=======
+        data.stats = check;
+        Cookies.set("status", data.stats);
+        Cookies.set("address", data.addrss);
+        window.location.reload(true);
+      }
+
+      //keys generated for escrow..
+      Cookies.set("escrowPhk", "tz1SL1KC6TwEuaMtSXLM7P51DFekbzytRX2z");
+      console.log(this.keys);
+    },
+    disconnect: function() {
+      Cookies.remove("address");
+      Cookies.remove("status");
+      Cookies.remove("cookAcc");
+      window.location.reload(true);
+>>>>>>> d5b1019b4740220d4ea0c0400cc0de1ae3259902
     }
   }
 };
@@ -208,6 +287,10 @@ export default {
     border-radius: 4px;
     font-size: 14px;
     z-index: 0;
+<<<<<<< HEAD
+=======
+
+>>>>>>> d5b1019b4740220d4ea0c0400cc0de1ae3259902
     &:not(.textarea) {
       height: 42px;
       min-height: 42px;
@@ -218,8 +301,15 @@ export default {
       resize: vertical;
     }
   }
+<<<<<<< HEAD
   .field-clear {
     $clear-size: 24px;
+=======
+
+  .field-clear {
+    $clear-size: 24px;
+
+>>>>>>> d5b1019b4740220d4ea0c0400cc0de1ae3259902
     position: absolute;
     top: 0;
     bottom: 0;
@@ -233,13 +323,25 @@ export default {
     color: rgba(0, 0, 0, 0.54);
     border-radius: $clear-size;
     cursor: pointer;
+<<<<<<< HEAD
     &:focus {
       outline: none;
     }
+=======
+
+    &:focus {
+      outline: none;
+    }
+
+>>>>>>> d5b1019b4740220d4ea0c0400cc0de1ae3259902
     &:hover {
       color: white;
     }
   }
+<<<<<<< HEAD
+=======
+
+>>>>>>> d5b1019b4740220d4ea0c0400cc0de1ae3259902
   &.has-value {
     .field-label {
       opacity: 1;
@@ -352,6 +454,10 @@ export default {
   &.sm {
     .field-input {
       font-size: 12px;
+<<<<<<< HEAD
+=======
+
+>>>>>>> d5b1019b4740220d4ea0c0400cc0de1ae3259902
       &:not(.textarea) {
         height: 36px;
         min-height: 36px;
@@ -372,6 +478,10 @@ export default {
   &.lg {
     .field-input {
       font-size: 16px;
+<<<<<<< HEAD
+=======
+
+>>>>>>> d5b1019b4740220d4ea0c0400cc0de1ae3259902
       &:not(.textarea) {
         height: 48px;
         min-height: 48px;
@@ -396,9 +506,17 @@ export default {
     position: relative;
     overflow: hidden;
     border-radius: 2px;
+<<<<<<< HEAD
     &.textarea {
       top: -7px;
     }
+=======
+
+    &.textarea {
+      top: -7px;
+    }
+
+>>>>>>> d5b1019b4740220d4ea0c0400cc0de1ae3259902
     &::before {
       display: block;
       position: absolute;
@@ -410,11 +528,16 @@ export default {
       animation: loading 3s linear infinite;
     }
   }
+<<<<<<< HEAD
+=======
+
+>>>>>>> d5b1019b4740220d4ea0c0400cc0de1ae3259902
   @keyframes loading {
     from {
       left: -200px;
       width: 30%;
     }
+<<<<<<< HEAD
     50% {
       width: 30%;
     }
@@ -427,6 +550,25 @@ export default {
     95% {
       left: 120%;
     }
+=======
+
+    50% {
+      width: 30%;
+    }
+
+    70% {
+      width: 70%;
+    }
+
+    80% {
+      left: 50%;
+    }
+
+    95% {
+      left: 120%;
+    }
+
+>>>>>>> d5b1019b4740220d4ea0c0400cc0de1ae3259902
     to {
       left: 100%;
     }
@@ -451,4 +593,8 @@ export default {
     }
   }
 }
+<<<<<<< HEAD
 </style>
+=======
+</style>
+>>>>>>> d5b1019b4740220d4ea0c0400cc0de1ae3259902

@@ -1,7 +1,11 @@
 /* eslint-disable */
 <template>
   <div class="w3-content">
+<<<<<<< HEAD
     <img src="../assets/TezCrowmain.png" style="width:750px; height:420px;">
+=======
+    <img src="../assets/TezCrowmain.png" style="width:750px; height:420px;" />
+>>>>>>> d5b1019b4740220d4ea0c0400cc0de1ae3259902
 
     <div class="w3-center w3-content">
       <h2></h2>

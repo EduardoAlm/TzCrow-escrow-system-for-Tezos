@@ -19,7 +19,11 @@
       </p>
       <p>&nbsp;</p>
     </div>
+<<<<<<< HEAD
     <img src="../../assets/escromodel.png" style="height:600px;">
+=======
+    <img src="../../assets/escromodel.png" style="height:600px;" />
+>>>>>>> d5b1019b4740220d4ea0c0400cc0de1ae3259902
   </div>
 </template>
 
@@ -37,4 +41,8 @@ p {
   line-height: 0.5;
   font-size: 17px;
 }
+<<<<<<< HEAD
 </style>
+=======
+</style>
+>>>>>>> d5b1019b4740220d4ea0c0400cc0de1ae3259902
