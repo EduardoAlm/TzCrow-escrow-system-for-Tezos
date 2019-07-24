@@ -137,8 +137,8 @@ export default {
   },
   methods: {
     getInfo() {
-      Cookies.set("contractAddress", "KT1Fidymk7Sq4CpLVV1QNXetGUtJceDsvk4D");
-      const contractAdd = "KT1Fidymk7Sq4CpLVV1QNXetGUtJceDsvk4D";
+      Cookies.set("contractAddress", "KT1PhBfE8KegF1Ca4LSUJTGyqT7mCW1Hs9Hz");
+      const contractAdd = "KT1PhBfE8KegF1Ca4LSUJTGyqT7mCW1Hs9Hz";
 
       let data = {
         sAddress: this.sAdd,
