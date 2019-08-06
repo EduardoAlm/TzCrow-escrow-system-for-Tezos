@@ -5,73 +5,36 @@ This project has the goal of bringing that security to the Tezos Blockchain. Rig
 
 For launching the sandboxed node is advised to use the granary located in the https://github.com/EduardoAlm/Granary repository.
 
-## Project setup
-```
-npm install
-```
+# Dependencies
 
-### Compiles and hot-reloads for development
+ * "commonjs": "0.0.1";
+ * "core-js": "^2.6.5";
+ * "couchdb": "^0.3.8";
+ * "crypto-js": "^3.1.9-1";
+ * "ipfs": "^0.36.3";
+ * "js-cookie": "^2.2.0";
+ * "openpgp": "^2.6.2";
+ * "pouchdb": "^7.0.0";
+ * "pouchdb-browser": "^7.0.0";
+ * "pouchdb-find": "^7.0.0";
+ * "reason": "^3.3.4";
+ * "register-service-worker": "^1.6.2";
+ * "vue": "^2.6.10";
+ * "vue-input-ui": "^0.2.5";
+ * "vue-js-modal": "^1.3.31";
+ * "vue-router": "^3.0.3";
+ * "vuex": "^3.0.1";
+ * "vuex-persistedstate": "^2.5.4".
+
+# Project Clone 
+
+```
+git clone https://github.com/EduardoAlm/TzCrow-escrow-system-for-Tezos.git
+```
+Using the terminal go into the project folder and run ...
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Aditional Packages
-```
-npm install js-cookie
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-
-### If $/.tezos-node/config.json file is missing
-Go to tezos folder and run, 
-```
-./tezos-node config init
-```
-the file will be created in $/.tezos-node/config.json.
-
-### Localhost execution 
-#### (*sandboxed*)
-Open three terminals and in each one navigate to /tezos folder, them chose one and run, 
-```
-./src/bin_node/tezos-sandboxed-node.sh 1 --connections 1 --cors-header='content-type' --cors-origin='*'
-```
-,then on a diferent terminal run,
-```
-eval `./src/bin_client/tezos-init-sandboxed-client.sh 1 --cors-header='content-type' --cors-origin='*'`
-
-```
-to inicialize the client data.
-For last open the last of the three terminals and run,
-` tezos-activate-alpha `
-to be able to test transactions etc... using default commands.
-
-#### (*not sandboxed*)
-Executar o comando que se segue, na pasta da tezos,
-```
-./tezos-node run
-```
-
-Once your node is up and runnning go to $/.tezos-node/config.json and alter the config.json file.
-In there change the rpc listenning port to your node port.
-
-Example:
-
-![rpcConnection](src/assets/rpcConn.png)
-
+## Current State Demonstration
 
