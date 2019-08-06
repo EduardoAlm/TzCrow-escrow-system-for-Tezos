@@ -1,4 +1,9 @@
-# tzCrow
+# TzCrow
+
+An escrow is a third party that increases the security of a transaction by controlling the funds associated with it.
+This project has the goal of bringing that security to the Tezos Blockchain. Right now is still a prototipe and lacks in security on the dApp side, and so while it can run on the mainnet and alphanet, its still advisable for its usage on a sandboxed node. 
+
+For launching the sandboxed node is advised to use the granary located in the https://github.com/EduardoAlm/Granary repository.
 
 ## Project setup
 ```
