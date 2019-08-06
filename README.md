@@ -26,6 +26,8 @@ For launching the sandboxed node is advised to use the granary located in the ht
  * "vuex": "^3.0.1";
  * "vuex-persistedstate": "^2.5.4".
 
+The rest of the dependencies can be found in the [package.json](package.json) file.
+
 # Project Clone 
 
 ```
