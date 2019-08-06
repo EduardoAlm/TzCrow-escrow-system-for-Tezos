@@ -37,4 +37,19 @@ npm run serve
 ```
 
 ## Current State Demonstration
+### Buyer Demo
 
+### Seller Demo
+
+### Escrow Demo
+
+## Authors
+
+* Eduardo Almeida - *Main author and maintainer* - [EduardoAlm](https://github.com/EduardoAlm)
+
+* Simão Melo de Sousa - [smdsousa](https://github.com/smdsousa)
+
+
+
+## License
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
