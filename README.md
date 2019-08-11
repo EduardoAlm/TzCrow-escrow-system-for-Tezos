@@ -40,7 +40,7 @@ npm run serve
 
 ## Current State Demonstration
 ### Buyer Demo
-
+[![Buyer View](https://youtu.be/sbRHdbcJDrU)](https://www.youtube.com/watch?v=sbRHdbcJDrU&feature=youtu.be "Buyer")
 ### Seller Demo
 
 ### Escrow Demo
