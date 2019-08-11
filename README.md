@@ -46,6 +46,13 @@ npm run serve
 
 ### Escrow Demo
 [![](display.png)](https://youtu.be/ZtpnOcoNvO4)
+
+### TzScan Demo   
+
+Demonstration of the operations executed on the Smart Contract after the completion of a successful transaction.
+
+[![](tzscan.png)]
+
 ## Authors
 
 * Eduardo Almeida - *Main author and maintainer* - [EduardoAlm](https://github.com/EduardoAlm)
