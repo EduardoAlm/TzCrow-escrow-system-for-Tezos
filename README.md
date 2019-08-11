@@ -51,7 +51,7 @@ npm run serve
 
 Demonstration of the operations executed on the Smart Contract after the completion of a successful transaction.
 
-[![](tzscan.png)]
+![](tzscan.png)
 
 ## Authors
 
