@@ -42,9 +42,10 @@ npm run serve
 ### Buyer Demo
 [![](display.png)](https://www.youtube.com/watch?v=sbRHdbcJDrU&feature=youtu.be)
 ### Seller Demo
+[![](display.png)](https://www.youtube.com/watch?v=CdSzkgKRu44)
 
 ### Escrow Demo
-
+[![](display.png)](https://youtu.be/ZtpnOcoNvO4)
 ## Authors
 
 * Eduardo Almeida - *Main author and maintainer* - [EduardoAlm](https://github.com/EduardoAlm)
